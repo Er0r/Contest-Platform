@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="Description" content="Enter your description here"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/cosmo/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+<link rel="stylesheet" href="../assets/css/partners.css">
+<title>Title</title>
+</head>
+<body class="b">
+    <!-- Start of LiveChat (www.livechatinc.com) code -->
+    <script>
+      window.__lc = window.__lc || {};
+      window.__lc.license = 12637182;
+      ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.livechatinc.com/tracking.js",t.head.appendChild(n)}};!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))
+    </script>
+    <noscript><a href="https://www.livechatinc.com/chat-with/12637182/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechatinc.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
+    <!-- End of LiveChat code -->
+    <div>
+      <div id="txt"></div>
+    <div class="container-fluid b" style="height: 100vh; width: 100%" >
+      <!-- Just an image -->
+      <nav class="navbar navbar-light bg-transparent justify-content-between">
+        <a class="navbar-brand" href="/">
+          <img src="../assets/css/1.png" width="170" height="140" alt="">
+        </a>
+          <a href="/faq">
+          <button class="btn btn-default rounded-pill text-white pl-4 pr-4" style="background-color: #21831e; font-size:1.2rem;">
+            FAQ
+          </button>
+        </a>
+      </nav>
+      <div class="container d-flex justify-content-center align-items-center">
+        <div class="Justify-content-Center align-items-center" >
+          <div class="card shadow-lg p-3 bg-transparent rounded" style="width:400px;">
+            <img class="card-img-top" src="https://api.xeem.de/storage/uploads/3e71bd24-58dd-447d-beac-9952465516ed/sap-challenge.jpg" alt="Card image" style="width:100%">
+            <div class="card-body">
+              <h3 class="card-title font-weight-normal" style="color:white" id= "contestName"><%= name %></h3>
+              <img class="card-img-top" src="https://api.xeem.de/storage/uploads/b7cd7967-2aa3-4afd-9466-d0d2fc25318a/sap.jpg" alt="Card image" style="width:20%; height:30px;">
+              <h4 class=" blink_text text-center text-white mt-2 font-weight-light card shadow-lg bg-transparent p-1">Contest Starting Time <span class="font-weight-strong"> <%= time %></span> </h4>
+              <style>
+                .blink_text {
+                animation-name: blinker;
+                animation-duration: 1s;
+                animation-timing-function: linear;
+                animation-iteration-count: infinite;
+               }
+               
+               @keyframes blinker {  
+                0% { opacity: 1.0; }
+                50% { opacity: 0.0; }
+                100% { opacity: 1.0; }
+               }
+              </style>
+              <div class="d-flex">
+                <button class="btn btn-success" style="width:50%" data-toggle="modal" data-target="#exampleModalCenter">Login</button>
+              <form action="/Validation" method="GET">
+                <button class="btn btn-success ml-1" style="width: 150%;">Registration</button>
+              </form>
+              </div>
+              
+              <form action="/lastpage" method="GET">
+                <button class="btn btn-success mt-2" id="statusbtn" style="width: 100%;">Show Status</button>
+              </form> 
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+      
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle" style="color: white;text-align: center;">Login</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+        <div class="modal-body" >
+                <form action="/Registration" method="POST">
+                  <div class="form-group">
+                      <label for="email">Email:</label>
+                      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                  </div>
+                  <div class="form-group">
+                      <label for="pwd">Password:</label>
+                      <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+                  </div>
+                  <div class="checkbox">
+                      <label><input type="checkbox" name="remember"> Remember me</label>
+                  </div>
+                  <button type="submit" class="btn btn-primary" style="width:100%" id="submitbtn">Submit</button>
+                </form>
+            <form >
+
+        </div>
+    </div>
+    </div>
+    <script>
+      
+    </script>
+    <script>
+      window.onload = function initializecontest(){
+        var contestName = document.getElementById('contestName').innerHTML;
+        if(contestName)
+          sessionStorage.setItem('ContestName', contestName);
+      }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+</body>
+</html>

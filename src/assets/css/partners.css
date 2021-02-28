@@ -1,0 +1,9 @@
+.b, body{
+    background-image: url('./image.png');
+    background-position: center fixed;
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    width: auto;
+    height: auto;
+    filter: brightness(90%);
+}    

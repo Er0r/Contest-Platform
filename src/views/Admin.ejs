@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="Description" content="Enter your description here"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+<title>Title</title>
+</head>
+<body>
+    <form action="/test" method="POST">
+        <div class="form-group">
+            <label for="contestname">Contest Name:</label>
+            <input type="text" class="form-control" id="contestname" placeholder="Enter ContestName" name="contestname">
+        </div>
+        <label for="meeting-time">Choose a time for your appointment:</label>
+
+        <input type="datetime-local" id="meetingtime"
+            name="meetingtime" value="2018-06-12T19:30"
+            min="2021-01-01T00:00" max="2021-12-31T00:00">
+
+        <button type="submit" class="btn btn-primary" style="width:100%" id="submitbtn">Submit</button>
+        <!-- <script type="require" src="../assets/js/validation.js"></script> -->
+      </form>
+      <form action="/deletecontest" method="POST">
+        <button type="submit" class="btn btn-primary" style="width:100%" id="submitbtn">Delete</button>
+      </form>
+     
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+</body>
+</html>

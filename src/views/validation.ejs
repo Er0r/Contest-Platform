@@ -1,0 +1,43 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/cosmo/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"> 
+    <link rel="stylesheet" href="../assets/css/partners.css">      
+</head>
+<body>
+    <!-- error Message of login -->
+    <h3 class="text-center " >Please Register Here To Participate</h1>
+    <h1 class="text-center">Want to register</h3>
+    
+    <!-- Registration Page -->
+    <div class="container register-form">
+        <div class="form">
+            <div class="note">
+                <p>Registration</p>
+            </div>
+            <form action="/Validation" method="POST">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Password:</label>
+                    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+                </div>
+                <div class="form-group">
+                    <label for="study">StudyArea:</label>
+                    <input type="text" class="form-control" id="study" placeholder="Enter Study Area" name="study">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="Description" content="Enter your description here"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+<link rel="stylesheet" href="../assets/css/partners.css">
+<title>Finish Page</title>
+
+<!-- Firebase Config Started -->
+<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-database.js"></script>
+<script>
+var firebaseConfig = {
+    apiKey: "AIzaSyCvAgUMHk9BbEfj5sZIwzfcTEkhz4CVS0I",
+    authDomain: "inkiproject-a7bce.firebaseapp.com",
+    projectId: "inkiproject-a7bce",
+    storageBucket: "inkiproject-a7bce.appspot.com",
+    messagingSenderId: "628494551758",
+    appId: "1:628494551758:web:36741c44fc42f6a3381e9f",
+    measurementId: "G-KV8N11B1F4"
+};
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+</script>
+
+<!-- Firebase Config Done -->
+
+</head>
+<body>
+<h1 id="teamname" style="color:white;"></h1>
+<h2 id="headertag" style="color:white;"></h2>
+<h3 id="contestname" style="color:white;"></h3>
+<p id="paratag" style="color:white;"></p>
+
+<script>
+    
+    var header = document.getElementById('headertag');
+    var para = document.getElementById('paratag');
+    var contest = document.getElementById('contestname');
+    var teamname = '';
+    var contestname = '';
+    var temphead= '';
+    var temp= '';
+    var count = 1;
+    var countanswers = 1;
+    var countteam = 1;
+    firebase.database().ref('/user/question').on('value', function(snapshot){
+        snapshot.forEach((childSnapshot)=>{
+            console.log('Ok');
+            teamname =  childSnapshot.val().teamName ;
+            temphead = childSnapshot.val().questions ;
+            contestname = childSnapshot.val().ContestName;
+            temp = childSnapshot.val().roomlink + '<br>';
+            
+           
+            var divcontainer = document.createElement('div');
+            divcontainer.innerHTML= `
+                TeamName: ${teamname}  
+                Content: ${temphead} 
+                ContestName: ${contestname} 
+                RoomLink: ${temp} <hr>`; 
+            document.getElementById('teamname').appendChild(divcontainer);
+            
+        })
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+</body>
+</html>
