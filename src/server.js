@@ -8,7 +8,7 @@ let path = require('path');
 const schedule = require('node-schedule');
 var cookieParser = require('cookie-parser')
 require('dotenv').config();
-
+var contesthandler = require('./assets/js/contesthandler');
 const MongoClient = require('mongodb').MongoClient;
 const nodemailer = require('nodemailer');
 
@@ -120,6 +120,8 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
     })
 
 
+
+
     // Validation
     app.post('/Registration',(req,res3)=> {
         
@@ -137,8 +139,13 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
 
         db.collection('Testing').find().toArray()
             .then(contest => {
-                const splitdatetime = contest[0].meetingtime;
-                console.log(splitdatetime);
+                var splitdatetime= '';
+                contest.forEach((con) => {
+                    if(contesthandler.check(con) === true){
+                        splitdatetime =  con.meetingtime;
+                    }
+                })
+                
                 const dates = splitdatetime.split('-');
                 const contestyear = dates[0];
                 const contestmonth = dates[1];
@@ -149,7 +156,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
                 let diffhour = contesthour - hours;
                 let diff = Math.floor(parseInt(contesthour)-parseInt(hours));
 
-                if((parseInt(contestyear) === parseInt(year)) && (parseInt(contestmonth) === parseInt(month)) && (parseInt(contestday[0]) === parseInt(date)) && ((diff <= 1) && (diff >= -1) )){
+                if((parseInt(contestyear) === parseInt(year)) && (parseInt(contestmonth) === parseInt(month)) && (parseInt(contestday[0]) === parseInt(date))){
                     // console.log('Okey');
                     db.collection('Registration').find().toArray()
                     .then(item => {
@@ -158,6 +165,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
                             var pass = item[i].pwd;
                             var flag=0;
                             if((password === pass) && (email === em)) {
+                                console.log('Validation Done re vai');
                                 db.collection('Room').find().toArray()
                                     .then(room => {
                                         if(room.length > 0){
@@ -187,17 +195,13 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
                                     }).catch(err => console.log(err)) 
                                     break;
                             } else if(i === item.length-1){
-                                res3.status(401);
+                             
                                 res3.render('error',{error: 'Your Email Or Password Is Invalid!!'});
                             }
                         }
                     }).catch(err => console.log(err));
-                } else if(parseInt(diff) > 3){
-                    res3.status(404);
-                    res3.render('error', {error: 'Contest is Already Finished'});
                 } 
                 else {
-                    res3.status(404);
                     res3.render('error', {error: 'Contest Is Not Started O. Thanks For Your Patience '});
                 }
                 
@@ -208,31 +212,36 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
 
     //Testing 
     app.post('/test', (req,res) => {
-
-        const someDate = new Date(req.body.meetingtime);
-        schedule.scheduleJob(someDate, () => {
-            console.log('Meeting Is Started!');
-            //Add Email
-            let mailOptions = {
-                from : process.env.ADMIN_EMAIL,
-                to : 'fahimmaria155@gmail.com',
-                subject: "Preparation For Upcoming Contest",
-                text: "Hello, Best of luck for your upcoming contest."
-            }
-            transporter.sendMail(mailOptions, function(err,data ) {
-                if(err) {
-                    console.log('Er0r');
-                } else {
-                    console.log('Done');
-                }
-            })
-            schedule.cancelJob(someDate);
-        })
-        testingCollection.insertOne(req.body)
-        .then(result => {
-        res.render('challenge', {name: req.body.contestname, time: req.body.meetingtime});
-    })
-        .catch(err => console.log(err));
+        const token  = req.cookies.token;
+        if(token === process.env.ADMIN_EMAIL) {
+            const someDate = new Date(req.body.meetingtime);
+                schedule.scheduleJob(someDate, () => {
+                    console.log('Meeting Is Started!');
+                    //Add Email
+                    let mailOptions = {
+                        from : process.env.ADMIN_EMAIL,
+                        to : 'fahimmaria155@gmail.com',
+                        subject: "Preparation For Upcoming Contest",
+                        text: "Hello, Best of luck for your upcoming contest."
+                    }
+                    transporter.sendMail(mailOptions, function(err,data ) {
+                        if(err) {
+                            console.log('Er0r');
+                        } else {
+                            console.log('Done');
+                        }
+                    })
+                    schedule.cancelJob(someDate);
+                })
+                testingCollection.insertOne(req.body)
+                .then(result => {
+                res.render('admin', {name: req.body.contestname, time: req.body.meetingtime});
+            }).catch(err => console.log(err));
+        }
+        else {
+            return res.json({ status: "error", error: "Please Login Before Accessing your Profile" })
+        }
+        
     })
 
     app.post('/deletecontest', (req,res) =>{
@@ -269,14 +278,14 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
     app.get('/', (req, res)=>{
         let db = client.db('Participants');
         io.of('/stream').on('connection', stream);
+        let i=0;
         db.collection('Testing').find().toArray()
-            .then(contest => {
-                if(contest.length > 0) {
-                    res.render('challenge', {name: contest[0].contestname, time: contest[0].meetingtime});
-                }    else {
-                    res.render('handler');
-                }
-                
+            .then(contest => { 
+                if(contest.length >= 0 ) {
+                    res.render('challenge', {contests: contest, contesthandler: contesthandler});
+                }else {
+                    res.render('handler', {contests: contest, contesthandler: contesthandler});
+                }    
             })
     });
     app.get('/lastpage', (req,res) => {

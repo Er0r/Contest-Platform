@@ -10,6 +10,14 @@
 <link rel="stylesheet" href="../assets/css/partners.css">
 <title>Title</title>
 </head>
+
+<script>
+      
+
+      
+</script>
+
+
 <body class="b">
     <!-- Start of LiveChat (www.livechatinc.com) code -->
     <script>
@@ -33,14 +41,20 @@
           </button>
         </a>
       </nav>
-      <div class="container d-flex justify-content-center align-items-center">
+      <div class="container d-flex justify-content-between align-items-center">
         <div class="Justify-content-Center align-items-center" >
           <div class="card shadow-lg p-3 bg-transparent rounded" style="width:400px;">
             <img class="card-img-top" src="https://api.xeem.de/storage/uploads/3e71bd24-58dd-447d-beac-9952465516ed/sap-challenge.jpg" alt="Card image" style="width:100%">
             <div class="card-body">
-              <h3 class="card-title font-weight-normal" style="color:white" id= "contestName"><%= name %></h3>
-              <img class="card-img-top" src="https://api.xeem.de/storage/uploads/b7cd7967-2aa3-4afd-9466-d0d2fc25318a/sap.jpg" alt="Card image" style="width:20%; height:30px;">
-              <h4 class=" blink_text text-center text-white mt-2 font-weight-light card shadow-lg bg-transparent p-1">Contest Starting Time <span class="font-weight-strong"> <%= time %></span> </h4>
+              <% if (contests.length){  %>
+                <% contests.forEach((con) => { %>
+                  <% if(contesthandler.check(con) === true) { %>
+                    <h3 class="card-title font-weight-normal" style="color:white" id= "contestName"><%= con.contestname %></h3>
+                    <img class="card-img-top" src="https://api.xeem.de/storage/uploads/b7cd7967-2aa3-4afd-9466-d0d2fc25318a/sap.jpg" alt="Card image" style="width:20%; height:30px;">
+                    <h4 class=" blink_text text-center text-white mt-2 font-weight-light card shadow-lg bg-transparent p-1">Contest Starting Time <span class="font-weight-strong"> <%= con.meetingtime %></span> </h4>
+                  <% } %>   
+                <% }) %>
+              <% } %>
               <style>
                 .blink_text {
                 animation-name: blinker;
@@ -57,9 +71,9 @@
               </style>
               <div class="d-flex">
                 <button class="btn btn-success" style="width:50%" data-toggle="modal" data-target="#exampleModalCenter">Login</button>
-              <form action="/Validation" method="GET">
-                <button class="btn btn-success ml-1" style="width: 150%;">Registration</button>
-              </form>
+                <form action="/Validation" method="GET">
+                  <button class="btn btn-success ml-1" style="width: 150%;">Registration</button>
+                </form>
               </div>
               
               <form action="/lastpage" method="GET">
@@ -68,7 +82,35 @@
             </div>
           </div>
         </div>
-      </div>
+
+        <div class="shadow-lg bg-transparent rounded p-2 text-white" style="border: 1px solid black; width: 400px">
+          <h2 class="text-center font-weight-bold">Contests Status</h2>
+          <hr class="t"><style> hr.t{border:1px solid black; width:100%}</style>
+          <marquee direction="up" scrolldelay="300"> 
+            <% if (contests.length){ %>
+              <% contests.forEach((con) => { %>
+                <% if(contesthandler.upcomingcheck(con) === true){ %>
+                  <h3 class="font-weight-bold"> <%= con.contestname %> </h3>
+                  <div class="d-flex flex-column justify-content-between align-items-center">
+                    <small><label class="p-2 bg-success mb-3">Upcoming</label>
+                      <button class="btn btn-default btn-info">View</button></small>
+                  </div>
+                  
+                <% } else {  %>
+                  <h3 clas="font-weight-bold"> <%= con.contestname %> </h3>
+                  <div class="d-flex flex-column justify-content-around align-items-center">
+                    <small><label class="p-2 bg-warning mb-3">Finished</label>
+                      <button class="btn btn-default btn-info">View</button></small>
+                  </div>
+                  <% }%>
+              <% }) %>
+              <% } else { %>
+                <h1 class="text-center font-weight-bold">No Contest Is Available</h1>
+              <% } %>
+            
+            </marquee>
+        </div>
+    </div>
   </div>
       
       

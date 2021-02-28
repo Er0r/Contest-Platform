@@ -11,7 +11,13 @@
 <title>Title</title>
 </head>
 <body>
-<h1> No COntest Found! Thanks For Your Patience </h1>
+<% if (contest.length){ %>
+    <% contest.forEach((con) => { %>
+    <h1> <%= con.contestname %></h1>
+    <h3><%= con.meetingtime %> </h3>
+    <% }) %>
+<% } %>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>

@@ -61,13 +61,15 @@ firebase.analytics();
             
            
             var divcontainer = document.createElement('div');
+            var btncontainer = document.createElement('button');
             divcontainer.innerHTML= `
                 TeamName: ${teamname}  
                 Content: ${temphead} 
                 ContestName: ${contestname} 
-                RoomLink: ${temp} <hr>`; 
+                RoomLink: ${temp} <hr>`;
+            btncontainer.innerHTML = 'Want To Make Them Win ? ';    
             document.getElementById('teamname').appendChild(divcontainer);
-            
+            document.getElementById('teamname').appendChild(btncontainer);
         })
     });
 </script>
