@@ -6,6 +6,8 @@ let io = require('socket.io')(server);
 let stream = require('./ws/stream');
 let path = require('path');
 const schedule = require('node-schedule');
+var cookieParser = require('cookie-parser')
+require('dotenv').config();
 
 const MongoClient = require('mongodb').MongoClient;
 const nodemailer = require('nodemailer');
@@ -22,9 +24,9 @@ let transporter = nodemailer.createTransport({
 const port = process.env.PORT || 3000;
 
 app.use("/Assets",express.static(__dirname + '/Assets'));
-app.use(bodyParser.urlencoded({extended:false})) 
-app.use(bodyParser.json()) 
-
+app.use(bodyParser.urlencoded({extended:false})); 
+app.use(bodyParser.json()); 
+app.use(cookieParser());
 
 app.set('view engine', 'ejs') 
 app.set('views', path.join(__dirname, 'views')) 
@@ -87,7 +89,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
                     }
                     else if((req.body.email != result[i].email) && (i === result.length-1)){
                         let mailOptions = {
-                            from : "fahimmaria155@gmail.com",
+                            from : process.env.ADMIN_EMAIL,
                             to : `${req.body.email}`,
                             subject: "Thanks For Registered",
                             text: "Hello, Thanks For Registering. Best of luck for your upcoming contest."
@@ -212,7 +214,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
             console.log('Meeting Is Started!');
             //Add Email
             let mailOptions = {
-                from : "fahimmaria155@gmail.com",
+                from : process.env.ADMIN_EMAIL,
                 to : 'fahimmaria155@gmail.com',
                 subject: "Preparation For Upcoming Contest",
                 text: "Hello, Best of luck for your upcoming contest."
@@ -238,11 +240,29 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
         res.render('handler');
     })
 
-    app.get('/admin', (req,res) => {
-        res.render('Admin');
+    app.post('/api/login',(req,res) => {
+        const {username, password} = req.body;
+        console.log(username + ' ' + password);
+        // console.log(process.env);
+        if(username === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASS) {
+            return res.json({status: "ok",data: username})   
+        } else {
+            return res.json({ status: "error", error: "Invalid username/password" })
+        }
     })
 
-    
+    app.get('/adminLogin', (req,res) => {
+        res.render('Login');
+    })
+
+    app.get('/admin', (req,res) => {
+        const token  = req.cookies.token;
+        if(token === process.env.ADMIN_EMAIL) {
+            res.render('Admin');
+        } else {
+            return res.json({ status: "error", error: "Please Login Before Accessing your Profile" })
+        }
+    })
 
     //Testing End
     
