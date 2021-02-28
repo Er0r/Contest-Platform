@@ -31,6 +31,9 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('assets', path.join('assets')) 
 const connectionString = "mongodb+srv://fahim:fahim@cluster0.qwhrs.mongodb.net/Participants?retryWrites=true&w=majority";
 
+app.get('/error', (req,res) => {
+    res.render('error');
+})
 
 MongoClient.connect(connectionString, { useUnifiedTopology: true })
   .then(client => {
@@ -141,14 +144,9 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
                 const times = contestday[1].split(':');
                 const contesthour = times[0];
                 const contestminute = times[1];
-                console.log(contestyear + ' ' + year); 
-                console.log(contestmonth + ' ' + month); 
-                console.log(contestday[0] + ' ' + date); 
-                console.log(contesthour + ' ' + hours);
                 let diffhour = contesthour - hours;
-                console.log(parseInt(diffhour));
                 let diff = Math.floor(parseInt(contesthour)-parseInt(hours));
-                console.log(diff);
+
                 if((parseInt(contestyear) === parseInt(year)) && (parseInt(contestmonth) === parseInt(month)) && (parseInt(contestday[0]) === parseInt(date)) && ((diff <= 1) && (diff >= -1) )){
                     // console.log('Okey');
                     db.collection('Registration').find().toArray()
@@ -187,15 +185,18 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
                                     }).catch(err => console.log(err)) 
                                     break;
                             } else if(i === item.length-1){
+                                res3.status(401);
                                 res3.render('error',{error: 'Your Email Or Password Is Invalid!!'});
                             }
                         }
                     }).catch(err => console.log(err));
                 } else if(parseInt(diff) > 3){
-                    res3.render('error', {error: 'Needs To Delete'});
+                    res3.status(404);
+                    res3.render('error', {error: 'Contest is Already Finished'});
                 } 
                 else {
-                    res3.render('error', {error: 'Contest Is Not Started Or Already Finished. Thanks For Your Patience '});
+                    res3.status(404);
+                    res3.render('error', {error: 'Contest Is Not Started O. Thanks For Your Patience '});
                 }
                 
         })  

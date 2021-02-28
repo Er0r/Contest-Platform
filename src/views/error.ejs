@@ -7,12 +7,21 @@
 <meta name="Description" content="Enter your description here"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
-<title>Title</title>
+
+<title>Jeekle</title>
 </head>
 <body>
     <div>
-        <img src="../assets/css/error.png" alt="">
+        <img src="../assets/css/error.png" width="100%" height="350px" alt="">
+        <h1 class="text-center"> Please Check ContestTime, Email And Password and Try Again Later!</h1>
+        <button class="btn btn-primary center" id= "backbtn">BACK TO MAIN</button>
     </div>
+    <script>
+        var backbtn = document.getElementById('backbtn');
+        backbtn.addEventListener('click', (e) => {
+            location.replace('/');
+        })
+    </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
