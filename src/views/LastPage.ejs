@@ -49,29 +49,43 @@ firebase.analytics();
     var temphead= '';
     var temp= '';
     var count = 1;
-    var countanswers = 1;
-    var countteam = 1;
-    firebase.database().ref('/user/question').on('value', function(snapshot){
-        snapshot.forEach((childSnapshot)=>{
-            console.log('Ok');
-            teamname =  childSnapshot.val().teamName ;
-            temphead = childSnapshot.val().questions ;
-            contestname = childSnapshot.val().ContestName;
-            temp = childSnapshot.val().roomlink + '<br>';
+
+        firebase.database().ref('/user/question').on('value', function(snapshot){
+            snapshot.forEach((childSnapshot)=>{
+                console.log('Ok');
+                teamname =  childSnapshot.val().teamName ;
+                temphead = childSnapshot.val().questions ;
+                contestname = childSnapshot.val().ContestName;
+                temp = childSnapshot.val().roomlink + '<br>';
+                
             
-           
-            var divcontainer = document.createElement('div');
-            var btncontainer = document.createElement('button');
-            divcontainer.innerHTML= `
-                TeamName: ${teamname}  
-                Content: ${temphead} 
-                ContestName: ${contestname} 
-                RoomLink: ${temp} <hr>`;
-            btncontainer.innerHTML = 'Want To Make Them Win ? ';    
-            document.getElementById('teamname').appendChild(divcontainer);
-            document.getElementById('teamname').appendChild(btncontainer);
-        })
-    });
+                var divcontainer = document.createElement('div');
+                var btncontainer = document.createElement('button');
+                divcontainer.id = `contest-${count}`;
+                btncontainer.id = `btn-${count}`;
+                divcontainer.innerHTML= `
+                    TeamName: ${teamname}  
+                    Content: ${temphead} 
+                    ContestName: ${contestname} 
+                    RoomLink: ${temp} <hr>`;
+                btncontainer.innerHTML = 'Want To Make Them Win ? ';    
+                document.getElementById('teamname').appendChild(divcontainer);
+                document.getElementById('teamname').appendChild(btncontainer);
+                var winnerdiv = document.getElementById(`contest-${count}`);
+
+                var winbtn = document.getElementById(`btn-${count}`)
+                
+                winbtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    sessionStorage.setItem('Winner', winnerdiv.innerHTML);
+                })
+                count++;
+            })
+        });
+    
+    
+    
+
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>

@@ -315,6 +315,10 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
     });
 })
 
+app.get('/result', (req,res) => {
+    res.render('winnerpage');
+})
+
 app.get('/faq', (req,res) => {
     res.render('faq');
 })
