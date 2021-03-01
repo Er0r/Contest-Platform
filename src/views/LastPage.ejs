@@ -77,7 +77,8 @@ firebase.analytics();
                 
                 winbtn.addEventListener('click', (e) => {
                     e.preventDefault();
-                    sessionStorage.setItem('Winner', winnerdiv.innerHTML);
+                    sessionStorage.setItem('Winnerteamname', teamname);
+                    sessionStorage.setItem('Winnercontent', temphead);
                 })
                 count++;
             })

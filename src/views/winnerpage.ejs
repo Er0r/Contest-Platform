@@ -12,12 +12,21 @@
 </head>
 <body>
     <div id="winnerdiv">
-
+        <h1 id="winnerheader">Winner: To Be Announced </h1>
+        <hr>
+        <p id="winnercontent">Content: To be Announced: </p>
     </div>
 <script>
-    const winnerdiv = document.getElementById('winnerdiv');
-    winnerdiv.innerHTML = sessionStorage.getItem('Winner');
-
+    const winner = document.getElementById('winnerheader');
+    const content = document.getElementById('winnercontent');
+    if(winner && content){
+        winner.innerHTML = `Contratulations ${sessionStorage.getItem('Winnerteamname')}`;
+        content.innerHTML = `Content: ${sessionStorage.getItem('Winnercontent')}`;
+    }
+    else {
+        winner.innerHTML = `Winner: To Be Announced`;
+        content.innerHTML = `Content: To be Announced`;
+    }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
