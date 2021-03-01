@@ -40,7 +40,7 @@ firebase.analytics();
 <p id="paratag" style="color:white;"></p>
 
 <script>
-    
+  
     var header = document.getElementById('headertag');
     var para = document.getElementById('paratag');
     var contest = document.getElementById('contestname');
@@ -49,7 +49,8 @@ firebase.analytics();
     var temphead= '';
     var temp= '';
     var count = 1;
-
+    sessionStorage.removeItem('Winnerteamname');
+    sessionStorage.removeItem('Winnercontent');
         firebase.database().ref('/user/question').on('value', function(snapshot){
             snapshot.forEach((childSnapshot)=>{
                 console.log('Ok');
@@ -57,7 +58,7 @@ firebase.analytics();
                 temphead = childSnapshot.val().questions ;
                 contestname = childSnapshot.val().ContestName;
                 temp = childSnapshot.val().roomlink + '<br>';
-                
+                var ref = firebase.database().ref('/contest/'+contestname);
             
                 var divcontainer = document.createElement('div');
                 var btncontainer = document.createElement('button');
@@ -76,9 +77,12 @@ firebase.analytics();
                 var winbtn = document.getElementById(`btn-${count}`)
                 
                 winbtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    sessionStorage.setItem('Winnerteamname', teamname);
-                    sessionStorage.setItem('Winnercontent', temphead);
+                    // alert('clicked ' + tempname);
+                    sessionStorage.setItem('Winnerteam', winnerdiv.innerHTML);
+                    ref.set({
+                        Winner: winnerdiv.innerHTML,
+                    })
+                    // location.replace('/');
                 })
                 count++;
             })

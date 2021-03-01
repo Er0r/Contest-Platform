@@ -8,25 +8,48 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
+<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-database.js"></script>
+<script>
+var firebaseConfig = {
+    apiKey: "AIzaSyCvAgUMHk9BbEfj5sZIwzfcTEkhz4CVS0I",
+    authDomain: "inkiproject-a7bce.firebaseapp.com",
+    projectId: "inkiproject-a7bce",
+    storageBucket: "inkiproject-a7bce.appspot.com",
+    messagingSenderId: "628494551758",
+    appId: "1:628494551758:web:36741c44fc42f6a3381e9f",
+    measurementId: "G-KV8N11B1F4"
+};
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+</script>
+
 <title>Winner</title>
 </head>
 <body>
     <div id="winnerdiv">
         <h1 id="winnerheader">Winner: To Be Announced </h1>
         <hr>
-        <p id="winnercontent">Content: To be Announced: </p>
     </div>
 <script>
-    const winner = document.getElementById('winnerheader');
-    const content = document.getElementById('winnercontent');
-    if(winner && content){
-        winner.innerHTML = `Contratulations ${sessionStorage.getItem('Winnerteamname')}`;
-        content.innerHTML = `Content: ${sessionStorage.getItem('Winnercontent')}`;
-    }
-    else {
-        winner.innerHTML = `Winner: To Be Announced`;
-        content.innerHTML = `Content: To be Announced`;
-    }
+    var contestname = sessionStorage.getItem('ContestName');
+    
+    firebase.database().ref('/contest/'+contestname).on('value', function(snapshot){
+        
+            // alert(childSnapshot.val());
+            const winner = document.getElementById('winnerheader');
+            const teamnamedb = snapshot.val().Winner;
+            if(!teamnamedb){
+                winner.innerHTML = `Winner: To Be Announced`;
+            } else{
+                winner.innerHTML = `Contratulations ${teamnamedb}`;
+            }   
+        
+    })
+    
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
