@@ -13,7 +13,7 @@ var count = 0;
 
 firebase.database().ref('/user/question'+r).on('value', function(snapshot){
     if(snapshot.val().teamName && count === 0){
-        teamid.innerHTML = `Welcome Team: ${snapshot.val().teamName}` 
+        teamid.innerHTML = `Team Name: ${snapshot.val().teamName}` 
         teamdiv.style.display = 'block';
         setteamdiv.style.display = 'none';
         count++;
@@ -30,7 +30,7 @@ function teamhandler(){
         teamName: name,
         ContestName: sessionStorage.getItem('ContestName')
     })
-    teamid.innerHTML = `<h1>Welcome Team: ${name}</h1>`
+    teamid.innerHTML = `<h1>Team Name:${name}</h1>`
     teamdiv.style.display = 'block';
     setteamdiv.style.display = 'none';
 }

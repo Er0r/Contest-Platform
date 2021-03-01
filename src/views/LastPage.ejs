@@ -65,10 +65,9 @@ firebase.analytics();
                 divcontainer.id = `contest-${count}`;
                 btncontainer.id = `btn-${count}`;
                 divcontainer.innerHTML= `
-                    TeamName: ${teamname}  
+                    ${teamname}  
                     Content: ${temphead} 
-                    ContestName: ${contestname} 
-                    RoomLink: ${temp} <hr>`;
+                    ContestName: ${contestname}  <hr>`;
                 btncontainer.innerHTML = 'Want To Make Them Win ? ';    
                 document.getElementById('teamname').appendChild(divcontainer);
                 document.getElementById('teamname').appendChild(btncontainer);
