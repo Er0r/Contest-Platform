@@ -16,8 +16,8 @@ const nodemailer = require('nodemailer');
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'fahimmaria155@gmail.com',
-        pass:'Isamariabuet123*'
+        user: process.env.USER_EMAIL,
+        pass: process.env.USER_PASS
     }
 })
 
@@ -31,7 +31,7 @@ app.use(cookieParser());
 app.set('view engine', 'ejs') 
 app.set('views', path.join(__dirname, 'views')) 
 app.set('assets', path.join('assets')) 
-const connectionString = "mongodb+srv://fahim:fahim@cluster0.qwhrs.mongodb.net/Participants?retryWrites=true&w=majority";
+const connectionString = process.env.MONGODB_CONNECTION_STRING;
 
 app.get('/error', (req,res) => {
     res.render('error');
@@ -45,11 +45,8 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
     const testingCollection = db.collection('Testing');
     const roomCollection = db.collection('Room');
     app.get('/room:id',(req,res) => {
-        // res.render('abc');
-        
-        
+             
         console.log(req.url);
-        // Many Room Exception !important // jokhon ekadhik room thakbe, tokhon insert hobe na //
         var link = req.url;
         var flag=0;
         db.collection('Room').find().toArray()
@@ -75,7 +72,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
                 }
             } 
         })
-        //  db.collection('Room').insertOne({"roomlink":req.url, "capacity": 1});  
+        
     })
 
     // Data insertion
@@ -126,85 +123,62 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
     app.post('/Registration',(req,res3)=> {
         
         let db = client.db('Participants');
-        let date_ob = new Date();
-        let date = ("0" + date_ob.getDate()).slice(-2);
-        let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
-        let year = date_ob.getFullYear();
-        let hours = date_ob.getHours();
-        let minutes = date_ob.getMinutes();
-        let seconds = date_ob.getSeconds();
-        let today = year + "-" + month + "-" + date + "T" + hours + ":" + minutes;
         var email = req.body.email; 
-        var password = req.body.pwd;     
-
+        var password = req.body.pwd;  
+        var it =0;   
         db.collection('Testing').find().toArray()
             .then(contest => {
-                var splitdatetime= '';
-                contest.forEach((con) => {
-                    if(contesthandler.check(con) === true){
-                        splitdatetime =  con.meetingtime;
-                    }
-                })
-                
-                const dates = splitdatetime.split('-');
-                const contestyear = dates[0];
-                const contestmonth = dates[1];
-                const contestday = dates[2].split('T');
-                const times = contestday[1].split(':');
-                const contesthour = times[0];
-                const contestminute = times[1];
-                let diffhour = contesthour - hours;
-                let diff = Math.floor(parseInt(contesthour)-parseInt(hours));
-
-                if((parseInt(contestyear) === parseInt(year)) && (parseInt(contestmonth) === parseInt(month)) && (parseInt(contestday[0]) === parseInt(date))){
-                    // console.log('Okey');
-                    db.collection('Registration').find().toArray()
-                    .then(item => {
-                        for(var i=0;i< item.length;i++){
-                            var em = item[i].email;
-                            var pass = item[i].pwd;
-                            var flag=0;
-                            if((password === pass) && (email === em)) {
-                                console.log('Validation Done re vai');
-                                db.collection('Room').find().toArray()
-                                    .then(room => {
-                                        if(room.length > 0){
-                                            for(var j=0;j<room.length;j++){
-                                                if(room[j].capacity < 4){
-                                                    var link = room[j].roomlink;
-                                                    var cap = room[j].capacity;
-                                                    var id = room[j]._id;
-                                                    flag=1;
-                                                    roomCollection.updateOne(
-                                                        { roomlink: room[j].roomlink },
-                                                        {
-                                                            $inc: {capacity: 1}
-                                                        }
-                                                    )
-                                                    res3.render('Partners',{ roomlink: link, cap: cap, roomid:id });
-                                                    break;
-                                                } 
+                for(var con = 0; con < contest.length; con++){
+                    if(contesthandler.contestentry(contest[con].meetingtime) === true){
+                        console.log('okey');
+                        db.collection('Registration').find().toArray()
+                        .then(item => {
+                            for(var i=0;i< item.length;i++){
+                                var em = item[i].email;
+                                var pass = item[i].pwd;
+                                var flag=0;
+                                if((password === pass) && (email === em)) {
+                                    db.collection('Room').find().toArray()
+                                        .then(room => {
+                                            if(room.length > 0){
+                                                for(var j=0;j<room.length;j++){
+                                                    if(room[j].capacity < 4){
+                                                        var link = room[j].roomlink;
+                                                        var cap = room[j].capacity;
+                                                        var id = room[j]._id;
+                                                        flag=1;
+                                                        roomCollection.updateOne(
+                                                            { roomlink: room[j].roomlink },
+                                                            {
+                                                                $inc: {capacity: 1}
+                                                            }
+                                                        )
+                                                        res3.render('Partners',{ roomlink: link, cap: cap, roomid:id });
+                                                        break;
+                                                    } 
+                                                }
+                                                if(flag==0){
+                                                    res3.render('index');
+                                                }
                                             }
-                                            if(flag==0){
+                                            else {
                                                 res3.render('index');
                                             }
-                                        }
-                                        else {
-                                            res3.render('index');
-                                        }
-                                    }).catch(err => console.log(err)) 
+                                        }).catch(err => console.log(err)) 
+                                        break;
+                                } else if(i === item.length-1){
+                                    res3.render('error',{error: 'Your Email Or Password Is Invalid!!'});
                                     break;
-                            } else if(i === item.length-1){
-                             
-                                res3.render('error',{error: 'Your Email Or Password Is Invalid!!'});
+                                }
                             }
-                        }
-                    }).catch(err => console.log(err));
-                } 
-                else {
-                    res3.render('error', {error: 'Contest Is Not Started O. Thanks For Your Patience '});
+                        }).catch(err => console.log(err));
+                        it=1;
+                    } 
                 }
-                
+                if(it !== 1){
+                    res3.render('error', {error: 'Contest Is Not Started . Thanks For Your Patience '});
+                }
+                       
         })  
     })
 
@@ -246,7 +220,8 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
 
     app.post('/deletecontest', (req,res) =>{
         db.collection('Testing').deleteMany({});
-        res.render('handler');
+        db.collection('Room').deleteMany({});
+        res.render('Admin'); 
     })
 
     app.post('/api/login',(req,res) => {
@@ -269,7 +244,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
         if(token === process.env.ADMIN_EMAIL) {
             res.render('Admin');
         } else {
-            return res.json({ status: "error", error: "Please Login Before Accessing your Profile" })
+            res.render('error', {error: 'Please Login With your Credentials to access this page'});
         }
     })
 

@@ -11,16 +11,18 @@ const teamdiv = document.getElementById('teamdiv');
 const setteamdiv = document.getElementById('setteamdiv');
 var count = 0;
 
+
+
 firebase.database().ref('/user/question'+r).on('value', function(snapshot){
     if(snapshot.val().teamName && count === 0){
-        teamid.innerHTML = `Team Name: ${snapshot.val().teamName}` 
-        teamdiv.style.display = 'block';
+        teamid.innerHTML = `${snapshot.val().teamName}` 
         setteamdiv.style.display = 'none';
-        count++;
+        teamdiv.style.display = 'block';   
+        count++;   
     }
-    
 })
 
+confirmbtn.addEventListener('click', teamhandler)
 
 function teamhandler(){
     var name = teamname.value; // AIUB_ZIP_zAP
@@ -30,12 +32,11 @@ function teamhandler(){
         teamName: name,
         ContestName: sessionStorage.getItem('ContestName')
     })
-    teamid.innerHTML = `<h1>Team Name:${name}</h1>`
+    teamid.innerHTML = `${name}`
     teamdiv.style.display = 'block';
     setteamdiv.style.display = 'none';
 }
 
-confirmbtn.addEventListener('click',teamhandler)
 
 firebase.database().ref('/user/question'+r).on('value', function(snapshot){
     if(snapshot.val().questions)
@@ -51,8 +52,7 @@ function myFunction() {
 
 function alertFunc(){
     var data = CKEDITOR.instances['content'].getData();
-    console.log(data);
-    console.log(window.location.pathname);
+
 }
 
 window.onload = function(){
@@ -117,7 +117,7 @@ function startTimer(duration, display) {
         localStorage.setItem('time'+r, timer);
         if (--timer < 0) {
             timer = duration;
-            window.location.replace("../../");
+            location.replace('/');
         }
     }, 1000);
 }

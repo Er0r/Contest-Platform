@@ -18,13 +18,13 @@
 	</head>
 	<body>
 		<style>
-			.faq-section {
+			/* .faq-section {
 				min-height: 100vh;
 				padding: 10vh 0 0;
-			}
+			} */
 			.faq-title h2 {
 				position: relative;
-				margin-bottom: 45px;
+				/* margin-bottom: 45px; */
 				display: inline-block;
 				font-weight: 600;
 				line-height: 1;
@@ -117,9 +117,9 @@
 				border-top: 1px solid #f3f8ff;
 			}
 
-			.faq .card .card-body p {
+			/* .faq .card .card-body p {
 				margin-bottom: 14px;
-			}
+			} */
 
 			@media (max-width: 991px) {
 				.faq {
@@ -131,14 +131,32 @@
 				}
 			}
 		</style>
-		<div class="container-fluid b">
+		<div class="container-fluid b" style="min-height: 100vh; min-width: 100vh" >
+			<nav class="navbar navbar-light bg-transparent shadow-lg justify-content-between">
+				<a class="navbar-brand" href="/">
+				  <img src="../assets/css/1.png" width="170" height="140" alt="">
+				</a>
+				<div class="">
+				  <a href="/adminlogin">
+					<button class="btn btn-default rounded-pill text-white pl-4 pr-4" style="background-color: #21831e; font-size:1.2rem;">
+					  Admin
+					</button>
+				  </a>
+					<a href="/faq">
+					<button class="btn btn-default rounded-pill text-white pl-4 pr-4" style="background-color: #21831e; font-size:1.2rem;">
+					  FAQ
+					</button>
+				  </a>
+				</div>
+				
+			  </nav>
 			<section class="faq-section">
-				<div class="container">
+				<div class="">
 					<div class="row">
 						<!-- ***** FAQ Start ***** -->
 						<div class="col-md-6 offset-md-3">
 							<div class="faq-title text-center pb-3">
-								<h2>FAQ</h2>
+								<h2 class="text-white font-weight-bold mt-2">FAQ</h2>
 							</div>
 						</div>
 						<div class="col-md-6 offset-md-3">
@@ -153,7 +171,7 @@
 												data-aria-expanded="true"
 												data-aria-controls="faqCollapse-1"
 											>
-												<span class="badge">1</span>What is Lorem Ipsum?
+												<span class="badge">1</span>Was ist Xeem?
 											</h5>
 										</div>
 									</div>
@@ -165,11 +183,7 @@
 									>
 										<div class="card-body">
 											<p>
-												Lorem Ipsum is simply dummy text of the printing and
-												typesetting industry. Lorem Ipsum has been the industry's
-												standard dummy text ever since the 1500s, when an unknown
-												printer took a galley of type and scrambled it to make a
-												type specimen book.
+												Xeem ist eine Online-Plattform, welche Unternehmen und junge Erwachsene durch kurze Online-Challenges zusammenbringt und dabei Innovationen fördert. Anhand praxisnaher Problemstellungen und Aufgaben entwickeln interdisziplinäre Teams Lösungsansätze, Impulse und Ideen über einen Video-Call. Und das innerhalb von nur zwei Stunden. Dabei entsteht nicht nur die Chance auf großartige Kontakte, sondern auch auf ein Preisgeld sowie ein Zertifikat.
 											</p>
 										</div>
 									</div>
@@ -184,7 +198,7 @@
 												data-aria-expanded="false"
 												data-aria-controls="faqCollapse-2"
 											>
-												<span class="badge">2</span> Where does it come from?
+												<span class="badge">2</span> Kostet mich die Teilnahme etwas?
 											</h5>
 										</div>
 									</div>
@@ -196,9 +210,8 @@
 									>
 										<div class="card-body">
 											<p>
-												Contrary to popular belief, Lorem Ipsum is not simply
-												random text. It has roots in a piece of classical Latin
-												literature from 45 BC, making it over 2000 years old.
+												Die Teilnahme ist für dich 100% kostenlos!
+Du hast sogar die Chance auf großartige Geld- und Sachpreise. Das Gewinnerteam wird ebenfalls durch ein Zertifikat prämiert.
 											</p>
 										</div>
 									</div>
@@ -213,7 +226,7 @@
 												data-aria-expanded="false"
 												data-aria-controls="faqCollapse-3"
 											>
-												<span class="badge">3</span>Why do we use it?
+												<span class="badge">3</span>Gibt es Teilnahmebedingungen?
 											</h5>
 										</div>
 									</div>
@@ -225,11 +238,7 @@
 									>
 										<div class="card-body">
 											<p>
-												It is a long established fact that a reader will be
-												distracted by the readable content of a page when looking
-												at its layout. The point of using Lorem Ipsum is that it
-												has a more-or-less normal distribution of letters, as
-												opposed to using 'Content here, content here.
+												Für eine Teilnahme an der Challenge musst Du mind. 18 Jahre alt sein. Ansonsten gilt: Challenges sind offen für alle jungen Erwachsenen, die ihr Potenzial nicht länger verstecken wollen. Dabei musst Du keine besondere Expertise oder Skills mitbringen. Vielmehr solltest Du offen sein und Lust haben, gemeinsam im Team an spannenden Ideen zu arbeiten.
 											</p>
 										</div>
 									</div>
@@ -244,7 +253,7 @@
 												data-aria-expanded="false"
 												data-aria-controls="faqCollapse-4"
 											>
-												<span class="badge">4</span> Where can I get some?
+												<span class="badge">4</span> Wie kann ich teilnehmen?
 											</h5>
 										</div>
 									</div>
@@ -256,10 +265,9 @@
 									>
 										<div class="card-body">
 											<p>
-												There are many variations of passages of Lorem Ipsum
-												available, but the majority have suffered alteration in
-												some form, by injected humour, or randomised words which
-												don't look even slightly believable.
+												Um bei einer Challenge teilzunehmen, benötigst Du lediglich einen Laptop oder ein Smartphone mit Internetverbindung. Anschließend musst Du Dich einfach auf www.xeem.de/registrieren anmelden.
+Nachdem Du in Deinem Profil einige Angaben zu Deiner Person und Deinen Fähigkeiten gemacht hast, kann es für Dich direkt mit den ersten Challenges losgehen. Hierfür gehst Du zur Challenge-Auswahl, bei der Du verschiedene Challenge-Beschreibungen anklicken und durchlesen kannst.
+Wenn Dir eine Challenge gefällt und noch genügend freie Plätze vorhanden sind, so kannst Du auf den Button „Teilnehmen“ klicken, um offiziell bei einer Challenge mitzumachen. Nachdem Du ein Team im Warteraum gefunden hast, geht es auch schon direkt mit dem Video-Call los!
 											</p>
 										</div>
 									</div>
@@ -274,7 +282,7 @@
 												data-aria-expanded="false"
 												data-aria-controls="faqCollapse-5"
 											>
-												<span class="badge">5</span> What is Lorem Ipsum?
+												<span class="badge">5</span> Wann findet eine Challenge statt?
 											</h5>
 										</div>
 									</div>
@@ -286,10 +294,7 @@
 									>
 										<div class="card-body">
 											<p>
-												It has survived not only five centuries, but also the leap
-												into electronic typesetting, remaining essentially
-												unchanged. It was popularised in the 1960s with the
-												release of Letraset sheets containing
+												Für die einzelnen Challenges gibt es feste Termine, an denen Du einfach von Zuhause oder einem beliebigen Ort aus teilnehmen kannst. Dabei kannst Du einem Team beitreten. Die Teams bestehen aus maximal vier Teilnehmern, die vorher nicht bekannt sind. Welche Wochentage das genau sind, erfährst Du entweder direkt, als Info bei der jeweiligen Challenge, oder in unserem Newsletter.
 											</p>
 										</div>
 									</div>
@@ -304,7 +309,7 @@
 												data-aria-expanded="false"
 												data-aria-controls="faqCollapse-6"
 											>
-												<span class="badge">6</span> Where does it come from?
+												<span class="badge">6</span> Wie lange dauert eine Challenge?
 											</h5>
 										</div>
 									</div>
@@ -316,12 +321,7 @@
 									>
 										<div class="card-body">
 											<p>
-												The standard chunk of Lorem Ipsum used since the 1500s is
-												reproduced below for those interested. Sections 1.10.32
-												and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero
-												are also reproduced in their exact original form,
-												accompanied by English versions from the 1914 translation
-												by H. Rackham.
+												Eine Challenge nimmt für Dich nicht mehr als zwei Stunden in Anspruch. Hierfür haben wir feste Zeiten und Tage definiert, an denen Du teilnehmen kannst und mit 2-3 Teammitgliedern zusammenkommst. Sobald die Challenge startet erhältst Du die genaue Aufgabenstellung und schon kann es mit dem gemeinsamen Brainstorming losgehen. Falls Ihr mit der Bearbeitung der Challenge schon früher fertig seid, dann könnt Ihr die Challenge durch den „Challenge beenden”- Button frühzeitig beenden. Sobald alle den Button gedrückt haben, wird Euer Ergebnis gespeichert.
 											</p>
 										</div>
 									</div>
@@ -336,7 +336,7 @@
 												data-aria-expanded="false"
 												data-aria-controls="faqCollapse-7"
 											>
-												<span class="badge">7</span> Why do we use it?
+												<span class="badge">7</span> Was kann ich gewinnen?
 											</h5>
 										</div>
 									</div>
@@ -348,12 +348,34 @@
 									>
 										<div class="card-body">
 											<p>
-												Many desktop publishing packages and web page editors now
-												use Lorem Ipsum as their default model text, and a search
-												for 'lorem ipsum' will uncover many web sites still in
-												their infancy. Various versions have evolved over the
-												years, sometimes by accident, sometimes on purpose
-												(injected humour and the like).
+												Zum einen hast Du die Chance auf den Kontakt zu Unternehmen und als Talent oder neuer Mitarbeiter entdeckt zu werden. Außerdem erhält das Gewinnerteam mit der besten Idee, welche vom Unternehmen ausgewählt wird, großartige Sach- oder Geldpreise. Die Art und der Umfang der Preise werden von dem jeweiligen Veranstalter der Challenge festgelegt. Sollten sich in Deinem Team weniger als vier Teilnehmer befinden, so wird ein Geldpreis gleichermaßen auf die Teamanzahl aufgeteilt. Darüber hinaus werden die Gewinner durch ein Zertifikat prämiert.
+											</p>
+										</div>
+									</div>
+								</div>
+								<div class="card">
+									<div class="card-header" id="faqHeading-8">
+										<div class="mb-0">
+											<h5
+												class="faq-title"
+												data-toggle="collapse"
+												data-target="#faqCollapse-8"
+												data-aria-expanded="false"
+												data-aria-controls="faqCollapse-8"
+											>
+												<span class="badge">8</span> Wie wird das Gewinner-Team ausgewählt?
+											</h5>
+										</div>
+									</div>
+									<div
+										id="faqCollapse-8"
+										class="collapse"
+										aria-labelledby="faqHeading-8"
+										data-parent="#accordion"
+									>
+										<div class="card-body">
+											<p>
+												Zum einen hast Du die Chance auf den Kontakt zu Unternehmen und als Talent oder neuer Mitarbeiter entdeckt zu werden. Außerdem erhält das Gewinnerteam mit der besten Idee, welche vom Unternehmen ausgewählt wird, großartige Sach- oder Geldpreise. Die Art und der Umfang der Preise werden von dem jeweiligen Veranstalter der Challenge festgelegt. Sollten sich in Deinem Team weniger als vier Teilnehmer befinden, so wird ein Geldpreis gleichermaßen auf die Teamanzahl aufgeteilt. Darüber hinaus werden die Gewinner durch ein Zertifikat prämiert.
 											</p>
 										</div>
 									</div>

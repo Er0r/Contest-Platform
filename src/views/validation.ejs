@@ -8,15 +8,35 @@
     <link rel="stylesheet" href="../assets/css/partners.css">      
 </head>
 <body>
-    <!-- error Message of login -->
-    <h3 class="text-center " >Please Register Here To Participate</h1>
-    <h1 class="text-center">Want to register</h3>
-    
-    <!-- Registration Page -->
-    <div class="container register-form">
+    <style>
+        label{
+            color:white;
+            font-size:1.2rem;
+        }
+    </style>
+    <div class="container-fluid">
+        <nav class="navbar navbar-light bg-transparent shadow-lg justify-content-between">
+            <a class="navbar-brand" href="/">
+              <img src="../assets/css/1.png" width="170" height="140" alt="">
+            </a>
+            <div class="">
+              <a href="/adminlogin">
+                <button class="btn btn-default rounded-pill text-white pl-4 pr-4" style="background-color: #21831e; font-size:1.2rem;">
+                  Admin
+                </button>
+              </a>
+                <a href="/faq">
+                <button class="btn btn-default rounded-pill text-white pl-4 pr-4" style="background-color: #21831e; font-size:1.2rem;">
+                  FAQ
+                </button>
+              </a>
+            </div>
+            
+          </nav>
+          <h1 class="text-center text-white font-weight-bold mt-3 mb-3">Register Here</h3>
+    <div class="container register-form card bg-transparent p-3" style="border:1px solid black;width:50rem;">
         <div class="form">
             <div class="note">
-                <p>Registration</p>
             </div>
             <form action="/Validation" method="POST">
                 <div class="form-group">
@@ -36,6 +56,7 @@
             
         </div>
     </div>
+</div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>

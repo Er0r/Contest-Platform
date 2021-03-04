@@ -1,109 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<meta name="Description" content="Enter your description here"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
-<link rel='stylesheet' href='assets/css/app.css' type="text/css">
-<link rel="stylesheet" href="./assets/css/timer.css">
-<link rel="stylesheet" href="./assets/css/partners.css">
-<!-- Firebase Config -->
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<meta name="Description" content="Enter your description here" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+		/>
+		<link rel="stylesheet" href="assets/css/app.css" type="text/css" />
+		<link rel="stylesheet" href="./assets/css/timer.css" />
+		<link rel="stylesheet" href="../assets/css/partners.css" />
+		<link rel="stylesheet" href="../assets/css/loader.css">
+		<!-- Firebase Config -->
 
-<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-analytics.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-database.js"></script>
-<script>
-var firebaseConfig = {
-    apiKey: "AIzaSyCvAgUMHk9BbEfj5sZIwzfcTEkhz4CVS0I",
-    authDomain: "inkiproject-a7bce.firebaseapp.com",
-    projectId: "inkiproject-a7bce",
-    storageBucket: "inkiproject-a7bce.appspot.com",
-    messagingSenderId: "628494551758",
-    appId: "1:628494551758:web:36741c44fc42f6a3381e9f",
-    measurementId: "G-KV8N11B1F4"
-};
-firebase.initializeApp(firebaseConfig);
-firebase.analytics();
-</script>
+		<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-analytics.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-firestore.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-database.js"></script>
+		<script>
+			var firebaseConfig = {
+				apiKey: "AIzaSyCvAgUMHk9BbEfj5sZIwzfcTEkhz4CVS0I",
+				authDomain: "inkiproject-a7bce.firebaseapp.com",
+				projectId: "inkiproject-a7bce",
+				storageBucket: "inkiproject-a7bce.appspot.com",
+				messagingSenderId: "628494551758",
+				appId: "1:628494551758:web:36741c44fc42f6a3381e9f",
+				measurementId: "G-KV8N11B1F4",
+			};
+			firebase.initializeApp(firebaseConfig);
+			firebase.analytics();
+		</script>
 
-<!-- Firebase Config Done -->
+		<!-- Firebase Config Done -->
 
-    <script src="//cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
-    <script src='/socket.io/socket.io.js'></script>
-    <script type="module" src='assets/js/rtc.js'></script>
-    <script type="module" src='assets/js/events.js'></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/7.3.0/adapter.min.js" integrity="sha256-2qQheewaqnZlXJ3RJRghVUwD/3fD9HNqxh4C+zvgmF4=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+		<script src="//cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+		<script type="module" src="assets/js/rtc.js"></script>
+		<script type="module" src="assets/js/events.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/7.3.0/adapter.min.js"
+			integrity="sha256-2qQheewaqnZlXJ3RJRghVUwD/3fD9HNqxh4C+zvgmF4="
+			crossorigin="anonymous"
+		></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
-<title>Title</title>
-</head>
-<body> 
-    <div class="container timerdiv d-flex justify-content-center mt-2 bg-transparent">
-        <div class="card shadow-lg p-2 mb-2 bg-white rounded text-center" style="width: 14rem;">
-            <div class="card-body" style="color:white;">
-                <h1> <span id="time"></span> </h1>
-            </div>
-          </div>
-          
-    </div>
-    <nav class="navbar bg-info rounded-0 d-print-none">
-        <div class="text-white">XEEM</div>
-        <div id="teamdiv" style="display: hidden;">
-            <label id="teamid" for=""></label>
-        </div>
-        <div id="setteamdiv" style="display: block;">
-            <input type="text" placeholder="Your Team Name" id="teamname">
-            <button class="btn btn-warning m-3" id="confirmbtn">
-                Confirm
-            </button>
-        </div>
-    </nav>
-    <div class="container-fluid room-comm" hidden>
-        <!-- nicher choto part -->
-        <div class="row" >
-            <video class="local-video" id='local' volume='0' autoplay muted></video>
-        </div>
-        <!-- main part pura page -->
-        <div class="row" style="display:flex; flex-direction: row; padding-top:3rem;">
-            <div class="col-md-5 mt-3 mb-3 main">
-                <div class="row;" id='videos'></div>
-            </div>
-        </div>
-        
-        <div class="col-8 chat-col bg-info float-right" id='chat-pane'>
-            <div class="">
-                <textarea name="content"></textarea>
-            </div>
-            <script>
-                CKEDITOR.replace('content');
-            </script>  
-            <button class="btn btn-warning m-3" id="postbtn">POST</button> 
-    
-            <div class="shadow card">
-                <div class="card-body" style="color: black;" id="card">
-                </div>
-            </div>
-            
-            <script src="../assets/js/posthandler.js"></script> <!-- Handler js-->
-            <div>
-                <% if(capacity === 4 || capacity === 2) { %>
-                    <script>
-                        initializeTimer();
-                    </script>
-                <% } %>
-                <script>
-                    showTime();
-                </script>
-            </div>
-        </div>
-    </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
-</body>
+		<title>Title</title>
+
+	</head>
+	<body>
+		<div id="loader" class="center"></div>
+		<div class="card shadow-lg bg-transparent">
+			<nav class="navbar bg-transparent rounded-0 d-print-none">
+				<div>
+					<div style="height: 5rem; width: 15rem">
+						<a href="/">
+							<img
+								src="../assets/css/1.png"
+								alt=""
+								style="height: 100%; width: 100%; object-fit: contain"
+							/>
+						</a>
+					</div>
+				</div>
+
+				<div id="teamdiv" style="display: none">
+					<label class="text-white" for="">
+						<span id="teamid" class="font-weight-bold text-uppercase"></span
+					></label>
+				</div>
+				<div class="bg-transparent text-center">
+					<div class="card-body blink_text" style="color: white">
+						<h1><span id="time"></span></h1>
+					</div>
+				</div>
+					<div id="setteamdiv" style="display: block">
+						<div
+						
+						class="d-flex align-items-center justify-content-center"
+						
+					>
+						<input
+							type="text"
+							placeholder="Enter Team Name"
+							class="form-control"
+							id="teamname"
+						/>
+						<button
+							class="btn btn-success m-1"
+							id="confirmbtn"
+							onClick="window.location.reload();"
+						>
+							Confirm
+						</button>
+
+						<button
+							class="btn btn-danger m-1"
+							id="leave"
+						>
+							Leave
+						</button>
+					</div>
+				</div>
+				
+			</nav>
+		</div>
+		<div class="container-fluid room-comm" hidden>
+			<div class="row">
+				<video class="local-video" id="local" volume="0" autoplay muted></video>
+			</div>
+			<div
+				class="row"
+				style="display: flex; flex-direction: row; padding-top: 3rem"
+			>
+				<div class="col-md-5 mt-3 mb-3 main">
+					<div class="row;" id="videos"></div>
+				</div>
+			</div>
+
+			<div
+				class="card shadow-md p-2 col-6 chat-col bg-transparent float-right"
+				id="chat-pane"
+			>
+				<div class="">
+					<textarea name="content"></textarea>
+				</div>
+				<script>
+					CKEDITOR.replace("content");
+				</script>
+				<button class="btn btn-warning m-3" id="postbtn">POST</button>
+
+				<div class="shadow card">
+					<div class="card-body" style="color: black" id="card"></div>
+				</div>
+
+				<script src="../assets/js/posthandler.js"></script>
+				<!-- Handler js-->
+				<div>
+					<% if(capacity === 4 || capacity === 2) { %>
+					<script>
+						initializeTimer();
+					</script>
+					<% } %>
+					<script>
+						showTime();
+					</script>
+				</div>
+			</div>
+		</div>
+		<script src="../assets/js/loader.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+	</body>
 </html>

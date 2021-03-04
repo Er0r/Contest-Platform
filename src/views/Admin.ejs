@@ -1,36 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<meta name="Description" content="Enter your description here"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<meta name="Description" content="Enter your description here" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+		/>
+		<link rel="stylesheet" href="../assets/css/partners.css">
+		<title>Title</title>
+	</head>
+	<body>
+		<div class="container-fluid">
+			<div class="" style="height: 10rem; width: 20rem">
+				<a class="" href="/">
+					<img
+						src="../assets/css/1.png"
+						alt=""
+						style="height: 100%; width: 100%; object-fit: contain"
+					/>
+				</a>
+			</div>
+			<div class="d-flex align-items-center justify-content-center">
+				<div class="card p-2">
+					<form action="/test" method="POST">
+						<div class="form-group">
+							<label for="contestname">Contest Name:</label>
+							<input
+								type="text"
+								class="form-control"
+								id="contestname"
+								placeholder="Enter Contest Name"
+								name="contestname"
+								required
+							/>
+						</div>
+						<label for="meeting-time">Enter Contest Time:</label><br />
 
-<title>Title</title>
-</head>
-<body>
-    <form action="/test" method="POST">
-        <div class="form-group">
-            <label for="contestname">Contest Name:</label>
-            <input type="text" class="form-control" id="contestname" placeholder="Enter ContestName" name="contestname">
-        </div>
-        <label for="meeting-time">Choose a time for your appointment:</label>
+						<input type="datetime-local" id="meetingtime" name="meetingtime" />
 
-        <input type="datetime-local" id="meetingtime"
-            name="meetingtime" value="2018-06-12T19:30"
-            min="2021-01-01T00:00" max="2021-12-31T00:00">
+						<button
+							type="submit"
+							class="btn btn-success mt-2"
+							style="width: 100%"
+							id="submitbtn"
+							required
+						>
+							Submit
+						</button>
+						<div id="msg" class="w3-animate-fading" style="display: none">
+							<div
+								class="alert alert-success alert-dismissible"
+								id="successmsg"
+							>
+								<a
+									href="#"
+									class="close"
+									data-dismiss="alert"
+									aria-label="close"
+									>&times;</a
+								>
+								<strong>Success!</strong> Contest is Successfully Added.
+							</div>
+						</div>
+					</form>
+					<form action="/lastpage" method="GET">
+						<button class="btn btn-success mt-2" id="statusbtn" style="width: 100%;">Show Status</button>
+					</form> 
+					<form action="/deletecontest" method="POST">
+						<button
+							type="submit"
+							class="btn btn-danger mt-2"
+							style="width: 100%"
+							id="submitbtn"
+						>
+							Delete All Contest
+						</button>
+					</form>
+					
+					<div>
+						<button
+							type="submit"
+							class="btn btn-default btn-warning mt-2 text-white"
+							style="width: 100%"
+							id="logoutbtn"
+						>
+							Sign Out
+						</button>
+					</div>
+					<script>
+						var logoutbtn = document.getElementById('logoutbtn');
+						logoutbtn.addEventListener('click', (e) => {
+							e.preventDefault();
+							document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+							location.replace('/');
+						})
+					</script>
+				</div>
+			</div>
+		</div>
 
-        <button type="submit" class="btn btn-primary" style="width:100%" id="submitbtn">Submit</button>
-        <!-- <script type="require" src="../assets/js/validation.js"></script> -->
-      </form>
-      <form action="/deletecontest" method="POST">
-        <button type="submit" class="btn btn-primary" style="width:100%" id="submitbtn">Delete</button>
-      </form>
-     
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
-</body>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+	</body>
 </html>
