@@ -92,7 +92,7 @@ function initializeTimer() {
         var fiveMinutes = 60 * 120,
         display = document.querySelector('#time');
         startTimer(fiveMinutes, display);
-        localStorage.setItem('time'+r, fiveMinutes);
+        // localStorage.setItem('time'+r, fiveMinutes);
     } else{
         var fiveMinutes = localStorage.getItem('time'+r),
         display = document.querySelector('#time');

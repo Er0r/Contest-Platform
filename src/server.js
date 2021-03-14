@@ -298,5 +298,8 @@ app.get('/faq', (req,res) => {
     res.render('faq');
 })
 
+app.get('/description', (req,res) => {
+    res.render('description');
+})
 
 server.listen(3000, console.log('Server Is Running'));
