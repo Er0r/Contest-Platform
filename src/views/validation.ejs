@@ -20,6 +20,9 @@
               <img src="../assets/css/1.png" width="170" height="140" alt="">
             </a>
             <div class="">
+              <a href="/Validation">
+                <button class="btn btn-default rounded-pill text-white " style="background-color: #21831e; font-size:1.2rem;">Registration</button>
+              </a>
               <a href="/adminlogin">
                 <button class="btn btn-default rounded-pill text-white pl-4 pr-4" style="background-color: #21831e; font-size:1.2rem;">
                   Admin
@@ -34,11 +37,23 @@
             
           </nav>
           <h1 class="text-center text-white font-weight-bold mt-3 mb-3">Register Here</h3>
+          
     <div class="container register-form card bg-transparent p-3" style="border:1px solid black;width:50rem;">
         <div class="form">
             <div class="note">
             </div>
             <form action="/Validation" method="POST">
+              <div class="form-group">
+                <label for="sel">Select Contest</label>
+                <select class="form-control" id="contest" name="contest">
+                  <option>Select Contest </option>
+                  <% if(contest.length){ %>
+                    <% contest.forEach((con) => { %>
+                     <option id=`${con.contestname}`><%= con.contestname %></option>
+                    <% }) %>
+                  <% }%>
+                </select>
+              </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
                     <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
@@ -51,6 +66,10 @@
                     <label for="study">Date Of Birth:</label>
                     <input type="date" class="form-control" id="Date_Of_Birth" name="DOB">
                 </div>
+                <div class="form-group">
+                  <label for="study">Age:</label>
+                  <input type="number" placeholder="Enter Age" class="form-control" id="age" name="age">
+              </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>
             

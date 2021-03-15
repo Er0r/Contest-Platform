@@ -77,67 +77,61 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
 
     // Data insertion
     app.post('/Validation',(req, res) => {
-        registrationCollection.find().toArray()
-            .then(result => {
-                for(var i=0;i<result.length;i++){
-                    if(req.body.email === result[i].email){
-                        res.redirect('/');
-                        break;
-                    }
-                    else if((req.body.email != result[i].email) && (i === result.length-1)){
-                        let mailOptions = {
-                            from : process.env.ADMIN_EMAIL,
-                            to : `${req.body.email}`,
-                            subject: "Thanks For Registered",
-                            text: "Hello, Thanks For Registering. Best of luck for your upcoming contest."
-                        }
-                        transporter.sendMail(mailOptions, function(err,data ) {
-                            if(err) {
-                                console.log('Er0r');
-                            } else {
-                                console.log('Done');
-                            }
-                        })
-                        registrationCollection.insertOne(req.body)
-                            .then(result => {
-                                res.redirect('/');
-                            })
-                            .catch(err => console.log(err));
-                    }
-                }
-                
+        console.log(req.body);
+        registrationCollection.insertOne(req.body)
+        .then(result => {
+            res.redirect('/');
         })
+        .catch(err => console.log(err));
+        // Validation Needed // 
+        // registrationCollection.find().toArray()
+        // .then(result => {
+        //     for(var i=0;i<result.length;i++){
+        //         if(req.body.email === result[i].email){
+        //             console.log('Break E Gese');
+        //             res.render('error',{error: 'Your Email Already Exists!!'});
+        //             break;
+        //         }
+        //         else if((req.body.email != result[i].email) && (i === result.length-1)){
+        //             console.log('Okey');
+                    
+        //         }
+        //     }      
+        // }).catch(err => console.log(err))
         
     })
 
     app.get('/Validation',(req, res) => {
-        
-        res.render('validation');
-        
+        db.collection('Testing').find().toArray()
+            .then(contest => {
+                res.render('validation', {contest: contest});
+            }).catch(err => console.log(err));
     })
 
 
 
 
     // Validation
-    app.post('/Registration',(req,res3)=> {
-        
+    app.post('/userlogin',(req,res3)=> {
         let db = client.db('Participants');
         var email = req.body.email; 
-        var password = req.body.pwd;  
+        var password = req.body.pwd; 
+      
         var it =0;   
         db.collection('Testing').find().toArray()
             .then(contest => {
+
                 for(var con = 0; con < contest.length; con++){
                     if(contesthandler.contestentry(contest[con].meetingtime) === true){
-                        console.log('okey');
+                        var contestname = contest[con].contestname;
                         db.collection('Registration').find().toArray()
                         .then(item => {
                             for(var i=0;i< item.length;i++){
                                 var em = item[i].email;
                                 var pass = item[i].pwd;
+                                var contest = item[i].contest;
                                 var flag=0;
-                                if((password === pass) && (email === em)) {
+                                if((password === pass) && (email === em) && (contestname === contest)) {
                                     db.collection('Room').find().toArray()
                                         .then(room => {
                                             if(room.length > 0){

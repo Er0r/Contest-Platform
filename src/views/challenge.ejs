@@ -33,6 +33,9 @@
           <img src="../assets/css/1.png" width="170" height="140" alt="">
         </a>
         <div class="">
+          <a href="/Validation">
+            <button class="btn btn-default rounded-pill text-white " style="background-color: #21831e; font-size:1.2rem;">Registration</button>
+          </a>
           <a href="/adminlogin">
             <button class="btn btn-default rounded-pill text-white pl-4 pr-4" style="background-color: #21831e; font-size:1.2rem;">
               Admin
@@ -60,9 +63,7 @@
                     <p>Entwickle Ideen für ein virtuelles Kollaborationstool der Zukunft</p>
                     <div class="d-flex">
                       <button class="btn btn-success" style="width:50%" data-toggle="modal" data-target="#exampleModalCenter">Login</button>
-                      <form action="/Validation" method="GET">
-                        <button class="btn btn-success ml-1" style="width: 150%;">Registration</button>
-                      </form>
+                      
                     </div>
                     <form action="/result" method="GET">
                       <button class="btn btn-success mt-2" id="statusbtn" style="width: 100%;">Show Result</button>
@@ -121,7 +122,7 @@
               </button>
             </div>
         <div class="modal-body" >
-                <form action="/Registration" method="POST">
+                <form action="/userlogin" method="POST">
                   <div class="form-group">
                       <label for="email">Email:</label>
                       <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
