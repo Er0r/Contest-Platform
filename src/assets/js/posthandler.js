@@ -9,7 +9,26 @@ const confirmbtn = document.getElementById('confirmbtn');
 const teamid = document.getElementById('teamid');
 const teamdiv = document.getElementById('teamdiv');
 const setteamdiv = document.getElementById('setteamdiv');
+const waitingdiv = document.getElementById('waitingdiv');
 var count = 0;
+
+var myVar = setInterval(initialize_members, 15000);
+
+function initialize_members(){
+    if(sessionStorage.getItem('capacity') >= 1 && sessionStorage.getItem('capacity') <= 3){
+        location.reload();
+        console.log(`${sessionStorage.getItem('capacity')} jon ache, aro niye ay, naile fot`);
+        waitingdiv.hidden = false;
+    }
+    else if(sessionStorage.getItem('capacity') >= 4){
+        clearInterval(myVar);
+        console.log('okey');
+        waitingdiv.hidden = true;
+        post.hidden = false;
+        confirmbtn.hidden = false;
+        leaveRoom.hidden = false;
+    }
+}
 
 
 
@@ -85,21 +104,25 @@ function showTime(){
     });
 }
 
-//Timer
-function initializeTimer() {
+var calltimer ;
+function initializeTimer(timeinterval) {
+    calltimer = setInterval(timer,timeinterval);
+};
+
+function timer() {
+    clearInterval(calltimer);
+    clearInterval(myVar);
     if(!localStorage.getItem('time'+r))
     {
-        var fiveMinutes = 60 * 120,
-        display = document.querySelector('#time');
-        startTimer(fiveMinutes, display);
+        var fiveMinutes = 60 * 120
+
         // localStorage.setItem('time'+r, fiveMinutes);
     } else{
-        var fiveMinutes = localStorage.getItem('time'+r),
-        display = document.querySelector('#time');
-        startTimer(fiveMinutes, display);
+        var fiveMinutes = localStorage.getItem('time'+r)  
     }
-    
-};
+    display = document.querySelector('#time');
+    startTimer(fiveMinutes, display);
+}
 
 function startTimer(duration, display) {
     var timer = duration, minutes, seconds;

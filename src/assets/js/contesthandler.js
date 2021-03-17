@@ -83,8 +83,7 @@ function contestentry(contestdate){
     const times = splitdatetime[1].split(':');
     const contesthour = times[0];
     const contestminute = times[1];
-    console.log(parseInt(minutes)-parseInt(contestminute));
-    console.log(parseInt(contestminute)-parseInt(minutes));
+  
 
     if((parseInt(contestday) === parseInt(date)) && (parseInt(contestyear) === parseInt(year)) && (parseInt(contestmonth) === parseInt(month)) && (parseInt(contesthour) === parseInt(hours) && ((parseInt(contestminute)-parseInt(minutes)) < 6))){
         return true;

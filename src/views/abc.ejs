@@ -39,11 +39,14 @@
 		</script>
 
 		<!-- Firebase Config Done -->
-
+		<script>
+			var capacity = " <%= capacity %>";
+			sessionStorage.setItem('capacity', capacity);
+			
+		</script>
 		<script src="//cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
 		<script type="module" src="assets/js/rtc.js"></script>
-		<script type="module" src="assets/js/events.js"></script>
 		<script
 			src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/7.3.0/adapter.min.js"
 			integrity="sha256-2qQheewaqnZlXJ3RJRghVUwD/3fD9HNqxh4C+zvgmF4="
@@ -75,12 +78,17 @@
 						<span id="teamid" class="font-weight-bold text-uppercase"></span
 					></label>
 				</div>
+				<div id="waitingdiv" hidden>
+					<label class="text-white" for="">
+						<span id="waitingid" class="font-weight-bold text-uppercase">Please Wait For Other Members</span
+					></label>
+				</div>
 				<div class="bg-transparent text-center">
 					<div class="card-body blink_text" style="color: white">
 						<h1><span id="time"></span></h1>
 					</div>
 				</div>
-					<div id="setteamdiv" style="display: block">
+					<div id="setteamdiv" style="display: hidden">
 						<div
 						
 						class="d-flex align-items-center justify-content-center"
@@ -96,6 +104,8 @@
 							class="btn btn-success m-1"
 							id="confirmbtn"
 							onClick="window.location.reload();"
+							hidden
+							
 						>
 							Confirm
 						</button>
@@ -103,6 +113,7 @@
 						<button
 							class="btn btn-danger m-1"
 							id="leave"
+							hidden
 						>
 							Leave
 						</button>
@@ -134,7 +145,7 @@
 				<script>
 					CKEDITOR.replace("content");
 				</script>
-				<button class="btn btn-warning m-3" id="postbtn">POST</button>
+				<button class="btn btn-warning m-3" id="postbtn" hidden>POST</button>
 
 				<div class="shadow card">
 					<div class="card-body" style="color: black" id="card"></div>
@@ -143,9 +154,13 @@
 				<script src="../assets/js/posthandler.js"></script>
 				<!-- Handler js-->
 				<div>
-					<% if(capacity === 4 || capacity >= 2) { %>
+					<% if(capacity === 4) { %>
 					<script>
-						initializeTimer();
+						initializeTimer(1000);
+					</script>
+					<% } else if(capacity === 3 || capacity === 2) { %>
+					<script>
+						initializeTimer(3000); // arektu baraite hobe // 
 					</script>
 					<% } %>
 					<script>

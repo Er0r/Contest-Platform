@@ -11,7 +11,7 @@ require('dotenv').config();
 var contesthandler = require('./assets/js/contesthandler');
 const MongoClient = require('mongodb').MongoClient;
 const nodemailer = require('nodemailer');
-
+var roomhandler = require('./assets/js/roomhandler');
 
 let transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -45,34 +45,22 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
     const testingCollection = db.collection('Testing');
     const roomCollection = db.collection('Room');
     app.get('/room:id',(req,res) => {
-             
-        console.log(req.url);
         var link = req.url;
         var flag=0;
         db.collection('Room').find().toArray()
         .then(room => {
             for(var i=0;i<room.length;i++){
                 if(room[i].roomlink === link){
+                    cap = room[i].capacity;
+                    res.render('abc', {capacity: cap});
                     flag=1;
                     break;
                 }
             }
             if(flag==0){
-                db.collection('Room').insertOne({"roomlink":req.url, "capacity": 1 });  
+                db.collection('Room').insertOne({"roomlink":req.url, "capacity": 1, "age": req.cookies.agenumber });  
             }
-        })
-
-        db.collection('Room').find().toArray()
-        .then(room => {
-            for(var i=0;i<room.length;i++){
-                if(room[i].roomlink === link) {
-                    cap = room[i].capacity;
-                    res.render('abc', {capacity: cap});
-                    break;
-                }
-            } 
-        })
-        
+        })        
     })
 
     // Data insertion
@@ -83,7 +71,8 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
             res.redirect('/');
         })
         .catch(err => console.log(err));
-        // Validation Needed // 
+        
+        // Validation Needed 
         // registrationCollection.find().toArray()
         // .then(result => {
         //     for(var i=0;i<result.length;i++){
@@ -129,14 +118,17 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
                             for(var i=0;i< item.length;i++){
                                 var em = item[i].email;
                                 var pass = item[i].pwd;
+                                var age = item[i].age;
+                             
                                 var contest = item[i].contest;
                                 var flag=0;
                                 if((password === pass) && (email === em) && (contestname === contest)) {
-                                    db.collection('Room').find().toArray()
+                                    console.log(age);
+                                    db.collection('Room').find().sort( { age: 1 } ).toArray()
                                         .then(room => {
                                             if(room.length > 0){
                                                 for(var j=0;j<room.length;j++){
-                                                    if(room[j].capacity < 4){
+                                                    if(room[j].capacity < 4 && (room[j].age >= 18 && room[j].age <= 20) && (age >= 18 && age <= 20)){
                                                         var link = room[j].roomlink;
                                                         var cap = room[j].capacity;
                                                         var id = room[j]._id;
@@ -144,18 +136,96 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
                                                         roomCollection.updateOne(
                                                             { roomlink: room[j].roomlink },
                                                             {
-                                                                $inc: {capacity: 1}
-                                                            }
+                                                                $inc: {capacity: 1},$set: {age: age}
+                                                            },
                                                         )
                                                         res3.render('Partners',{ roomlink: link, cap: cap, roomid:id });
                                                         break;
-                                                    } 
+                                                    } else if((room[j].capacity < 4) && (room[j].age >= 21 && room[j].age <= 23) && (age >= 21 && age <= 23)){
+                                                        var link = room[j].roomlink;
+                                                        var cap = room[j].capacity;
+                                                        var id = room[j]._id;
+                                                        flag=1;
+                                                        roomCollection.updateOne(
+                                                            { roomlink: room[j].roomlink },
+                                                            {
+                                                                $inc: {capacity: 1},$set: {age: age}
+                                                            },
+                                                        )    
+                                                        res3.render('Partners',{ roomlink: link, cap: cap, roomid:id });
+                                                        break;  
+                                                    } else if(room[j].capacity < 4 && (room[j].age >= 24 && room[j].age <= 27) && (age >= 24 && age <= 27)){
+                                                       
+                                                            var link = room[j].roomlink;
+                                                            var cap = room[j].capacity;
+                                                            var id = room[j]._id;
+                                                            flag=1;
+                                                            roomCollection.updateOne(
+                                                                { roomlink: room[j].roomlink },
+                                                                {
+                                                                    $inc: {capacity: 1},$set: {age: age}
+                                                                },
+                                                            )
+                                                            
+                                                            res3.render('Partners',{ roomlink: link, cap: cap, roomid:id });
+                                                            break;  
+                                                        
+                                                    } else if(room[j].capacity < 4 && (room[j].age >= 28 && room[j].age <= 31) && (age >= 28 && age <= 31)){        
+                                                        var link = room[j].roomlink;
+                                                        var cap = room[j].capacity;
+                                                        var id = room[j]._id;
+                                                        flag=1;
+                                                        roomCollection.updateOne(
+                                                            { roomlink: room[j].roomlink },
+                                                            {
+                                                                $inc: {capacity: 1},$set: {age: age}
+                                                            },
+                                                        )
+                                                        
+                                                        res3.render('Partners',{ roomlink: link, cap: cap, roomid:id });
+                                                        break;  
+                                                        
+                                                    } else if(room[j].capacity < 4 && (room[j].age >= 31 && room[j].age <= 33) && (age >= 31 && age <= 33)){
+                                                        
+                                                            var link = room[j].roomlink;
+                                                            var cap = room[j].capacity;
+                                                            var id = room[j]._id;
+                                                            flag=1;
+                                                            roomCollection.updateOne(
+                                                                { roomlink: room[j].roomlink },
+                                                                {
+                                                                    $inc: {capacity: 1},$set: {age: age}
+                                                                },
+                                                            )
+                                                            
+                                                            res3.render('Partners',{ roomlink: link, cap: cap, roomid:id });
+                                                            break;  
+                                                        
+                                                    } else if(room[j].capacity < 4 && (room[j].age >= 34 && room[j].age <= 36) && (age >= 34 && age <= 36)){
+                        
+                                                            var link = room[j].roomlink;
+                                                            var cap = room[j].capacity;
+                                                            var id = room[j]._id;
+                                                            flag=1;
+                                                            roomCollection.updateOne(
+                                                                { roomlink: room[j].roomlink },
+                                                                {
+                                                                    $inc: {capacity: 1},$set: {age: age}
+                                                                },
+                                                            )
+                                                            
+                                                            res3.render('Partners',{ roomlink: link, cap: cap, roomid:id });
+                                                            break;  
+                                                        }
+                                                    
                                                 }
                                                 if(flag==0){
+                                                    res3.cookie('agenumber', age);
                                                     res3.render('index');
                                                 }
                                             }
                                             else {
+                                                res3.cookie('agenumber', age);
                                                 res3.render('index');
                                             }
                                         }).catch(err => console.log(err)) 
@@ -214,8 +284,12 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
 
     app.post('/deletecontest', (req,res) =>{
         db.collection('Testing').deleteMany({});
-        db.collection('Room').deleteMany({});
         res.render('Admin'); 
+    })
+
+    app.post('/clearRoombtn', (req,res) => {
+        db.collection('Room').deleteMany({});
+        res.render('Admin');
     })
 
     app.post('/api/login',(req,res) => {
@@ -248,6 +322,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
         let db = client.db('Participants');
         io.of('/stream').on('connection', stream);
         let i=0;
+        res.clearCookie('agenumber');
         db.collection('Testing').find().toArray()
             .then(contest => { 
                 if(contest.length >= 0 ) {

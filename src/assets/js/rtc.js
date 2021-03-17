@@ -187,27 +187,5 @@ window.addEventListener('load', ()=>{
                         break;
                 }
             };
-        }
-
-        document.getElementById('toggle-video').addEventListener('click', (e)=>{
-            e.preventDefault();
-
-            myStream.getVideoTracks()[0].enabled = !(myStream.getVideoTracks()[0].enabled);
-
-            //toggle video icon
-            e.srcElement.classList.toggle('fa-video');
-            e.srcElement.classList.toggle('fa-video-slash');
-        });
-
-
-        document.getElementById('toggle-mute').addEventListener('click', (e)=>{
-            e.preventDefault();
-
-            myStream.getAudioTracks()[0].enabled = !(myStream.getAudioTracks()[0].enabled);
-
-            //toggle audio icon
-            e.srcElement.classList.toggle('fa-volume-up');
-            e.srcElement.classList.toggle('fa-volume-mute');
-        });
-    
+        }  
 });
