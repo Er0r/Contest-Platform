@@ -21,7 +21,7 @@ app.use(cookieParser());
 
 app.set('view engine', 'ejs') 
 app.set('views', path.join(__dirname, 'views')) 
-app.set('assets', path.join('assets')) 
+app.set('Assets', path.join('Assets')) 
 
 
 app.use('/Validation', validation);
