@@ -12,7 +12,7 @@ var contesthandler = require('./assets/js/contesthandler');
 const MongoClient = require('mongodb').MongoClient;
 const nodemailer = require('nodemailer');
 var roomhandler = require('./assets/js/roomhandler');
-
+var validation = require('./controller/validation.controller');
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -20,8 +20,6 @@ let transporter = nodemailer.createTransport({
         pass: process.env.USER_PASS
     }
 })
-
-const port = process.env.PORT || 3000;
 
 app.use("/Assets",express.static(__dirname + '/Assets'));
 app.use(bodyParser.urlencoded({extended:false})); 
@@ -37,11 +35,12 @@ app.get('/error', (req,res) => {
     res.render('error');
 })
 
+app.use('/Validation', validation);
+
 MongoClient.connect(connectionString, { useUnifiedTopology: true })
   .then(client => {
   
     const db = client.db('Participants');
-    const registrationCollection = db.collection('Registration');
     const testingCollection = db.collection('Testing');
     const roomCollection = db.collection('Room');
     app.get('/room:id',(req,res) => {
@@ -62,43 +61,6 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
             }
         })        
     })
-
-    // Data insertion
-    app.post('/Validation',(req, res) => {
-        console.log(req.body);
-        registrationCollection.insertOne(req.body)
-        .then(result => {
-            res.redirect('/');
-        })
-        .catch(err => console.log(err));
-        
-        // Validation Needed 
-        // registrationCollection.find().toArray()
-        // .then(result => {
-        //     for(var i=0;i<result.length;i++){
-        //         if(req.body.email === result[i].email){
-        //             console.log('Break E Gese');
-        //             res.render('error',{error: 'Your Email Already Exists!!'});
-        //             break;
-        //         }
-        //         else if((req.body.email != result[i].email) && (i === result.length-1)){
-        //             console.log('Okey');
-                    
-        //         }
-        //     }      
-        // }).catch(err => console.log(err))
-        
-    })
-
-    app.get('/Validation',(req, res) => {
-        db.collection('Testing').find().toArray()
-            .then(contest => {
-                res.render('validation', {contest: contest});
-            }).catch(err => console.log(err));
-    })
-
-
-
 
     // Validation
     app.post('/userlogin',(req,res3)=> {
