@@ -88,9 +88,7 @@ function contestentry(contestdate){
 
     if((parseInt(contestday) === parseInt(date)) && (parseInt(contestyear) === parseInt(year)) && (parseInt(contestmonth) === parseInt(month))){
         if((parseInt(contesthour) === parseInt(hours))) {
-            if((parseInt(contestminute)-parseInt(minutes)) < 6) {
-                return true;
-            }
+            return true;
         } else if((parseInt(contesthour) - parseInt(hours) < 1) && parseInt(contesthour - parseInt(hours) >= -1)) {
             return true;
         } else if((parseInt(contesthour) - parseInt(hours) === 1)) {
