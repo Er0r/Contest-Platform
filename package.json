@@ -30,12 +30,12 @@
   },
   "keywords": [
     "LiveStream",
-    "Server"
+    "Server",
+    "heroku"
   ],
-  "author": "Amir Sanni <amirsanni@gmail.com>",
+  "author": "Fahim <fahimmaria155@gmail.com>",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/amirsanni/livestream-server/issues"
-  },
-  "homepage": "https://github.com/amirsanni/livestream-server#readme"
+  "engines": {
+    "node": "12.19.0"
+  }
 }
