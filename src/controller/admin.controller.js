@@ -7,6 +7,9 @@ const connectionString = process.env.MONGODB_CONNECTION_STRING;
 router.use(cookieParser());
 
 
+router.use("/views",express.static(__dirname + '..' + '/views'));
+
+
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
