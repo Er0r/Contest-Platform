@@ -14,14 +14,15 @@ var challenge = require('./controller/challenge.controller');
 var lastpage = require('./controller/lastpage.controller');
 var room = require('./controller/room.controller');
 
-app.use("/Assets",express.static(__dirname + '/Assets'));
+app.use("/assets",express.static(__dirname + '/assets'));
+app.use("/controller",express.static(__dirname + '/controller'));
 app.use(bodyParser.urlencoded({extended:false})); 
 app.use(bodyParser.json()); 
 app.use(cookieParser());
 
 app.set('view engine', 'ejs') 
 app.set('views', path.join(__dirname, 'views')) 
-// app.set('Assets', path.join('Assets')) 
+
 
 
 app.use('/Validation', validation);
