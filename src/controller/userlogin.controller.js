@@ -26,6 +26,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
 
                 for(var con = 0; con < contest.length; con++){
                     if(contesthandler.contestentry(contest[con].meetingtime) === true){
+                        console.log('Ok, time milse');
                         var contestname = contest[con].contestname;
                         registrationCollection.find().toArray()
                         .then(item => {
