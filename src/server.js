@@ -16,6 +16,8 @@ var room = require('./controller/room.controller');
 
 app.use("/assets",express.static(__dirname + '/assets'));
 app.use("/controller",express.static(__dirname + '/controller'));
+app.use("/views",express.static(__dirname + '/views'));
+app.use("/ws",express.static(__dirname + '/ws'));
 app.use(bodyParser.urlencoded({extended:false})); 
 app.use(bodyParser.json()); 
 app.use(cookieParser());
