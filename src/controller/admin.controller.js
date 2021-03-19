@@ -59,29 +59,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
     router.get('/test', (req,res) => {
         const token  = req.cookies.token;
         if(token === process.env.ADMIN_EMAIL) {
-            // const someDate = new Date(req.body.meetingtime);
-                // schedule.scheduleJob(someDate, () => {
-                //     console.log('Meeting Is Started!');
-                //     //Add Email
-                //     let mailOptions = {
-                //         from : process.env.ADMIN_EMAIL,
-                //         to : 'fahimmaria155@gmail.com',
-                //         subject: "Preparation For Upcoming Contest",
-                //         text: "Hello, Best of luck for your upcoming contest."
-                //     }
-                //     transporter.sendMail(mailOptions, function(err,data ) {
-                //         if(err) {
-                //             console.log('Er0r');
-                //         } else {
-                //             console.log('Done');
-                //         }
-                //     })
-                //     schedule.cancelJob(someDate);
-                // })
-                testingCollection.insertOne(req.body)
-                .then(result => {
-                res.render('admin', {name: req.body.contestname, time: req.body.meetingtime});
-            }).catch(err => console.log(err));
+                res.render('admin');
         }
         else {
             return res.json({ status: "error", error: "Please Login Before Accessing your Profile" })
