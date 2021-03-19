@@ -47,7 +47,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
                 // })
                 testingCollection.insertOne(req.body)
                 .then(result => {
-                res.render('admin', {name: req.body.contestname, time: req.body.meetingtime});
+                res.redirect('/admin');
             }).catch(err => console.log(err));
         }
         else {
@@ -56,16 +56,6 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
         
     })
 
-    router.get('/test', (req,res) => {
-        const token  = req.cookies.token;
-        if(token === process.env.ADMIN_EMAIL) {
-                res.render('admin');
-        }
-        else {
-            return res.json({ status: "error", error: "Please Login Before Accessing your Profile" })
-        }
-        
-    })
     router.post('/deletecontest', (req,res) =>{
         testingCollection.deleteMany({});
         res.render('Admin'); 
