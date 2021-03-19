@@ -86,21 +86,22 @@ function contestentry(contestdate){
     console.log(`contesthours - hours ${parseInt(contesthour - parseInt(hours))}`);
     console.log(`contestminute - minutes ${parseInt(contestminute - parseInt(minutes))}`);
 
-    if((parseInt(contestday) === parseInt(date)) && (parseInt(contestyear) === parseInt(year)) && (parseInt(contestmonth) === parseInt(month))){
-        if((parseInt(contesthour) === parseInt(hours))) {
-            return true;
-        } else if((parseInt(contesthour) - parseInt(hours) < 1) && parseInt(contesthour - parseInt(hours) >= -1)) {
-            return true;
-        } else if((parseInt(contesthour) - parseInt(hours) === 1)) {
-            temp_contestminute = parseInt(contestminute) + 60;
-            temp_minute = minutes;
-            if((parseInt(temp_contestminute) - parseInt(temp_minute)) < 6) {
-                return true;
-            }
-        }
-    } else {
-        return false;
-    }
+    // if((parseInt(contestday) === parseInt(date)) && (parseInt(contestyear) === parseInt(year)) && (parseInt(contestmonth) === parseInt(month))){
+    //     if((parseInt(contesthour) === parseInt(hours))) {
+    //         return true;
+    //     } else if((parseInt(contesthour) - parseInt(hours) < 1) && parseInt(contesthour - parseInt(hours) >= -1)) {
+    //         return true;
+    //     } else if((parseInt(contesthour) - parseInt(hours) === 1)) {
+    //         temp_contestminute = parseInt(contestminute) + 60;
+    //         temp_minute = minutes;
+    //         if((parseInt(temp_contestminute) - parseInt(temp_minute)) < 6) {
+    //             return true;
+    //         }
+    //     }
+    // } else {
+    //     return false;
+    // }
+    return true;
 }
 
 module.exports = {
