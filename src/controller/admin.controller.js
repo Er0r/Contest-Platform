@@ -8,7 +8,7 @@ router.use(cookieParser());
 
 
 router.use("/views",express.static(__dirname + '..' + '/views'));
-
+router.use("/assets",express.static(__dirname + '..' + '/assets'));
 
 let transporter = nodemailer.createTransport({
     service: 'gmail',

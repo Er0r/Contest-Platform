@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 
-
+router.use("/assets",express.static(__dirname + '..' + '/assets'));
+router.use("/views",express.static(__dirname + '..' + '/views'));
 var contesthandler = require('../assets/js/contesthandler');
 const MongoClient = require('mongodb').MongoClient;
 const connectionString = process.env.MONGODB_CONNECTION_STRING;
