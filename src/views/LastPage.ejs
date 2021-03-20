@@ -66,11 +66,7 @@
 		
 
 		<script>
-			var contestidbtn = document.getElementById('contestid');
-			contestidbtn.addEventListener('click', ( e ) => {
-				var header = document.getElementById("headertag");
-				var cnstnm = document.getElementById('contest').value;
-				sessionStorage.setItem('contestname', cnstnm); 
+			var header = document.getElementById("headertag");
 			var para = document.getElementById("paratag");
 			var contest = document.getElementById("contestname");
 			var teamname = "";
@@ -78,50 +74,56 @@
 			var temphead = "";
 			var temp = "";
 			var count = 1;
-			sessionStorage.removeItem("Winnerteamname");
-			sessionStorage.removeItem("Winnercontent");
+			var contestidbtn = document.getElementById('contestid');
+			contestidbtn.addEventListener('click', ( e ) => {
+				console.log('button clicked');
+				var cnstnm = document.getElementById('contest').value;
+				sessionStorage.setItem('contestname', cnstnm); 
+				sessionStorage.removeItem("Winnerteamname");
+				sessionStorage.removeItem("Winnercontent");
 			firebase
 				.database()
 				.ref("/user/question")
 				.on("value", function (snapshot) {
 					snapshot.forEach((childSnapshot) => {
-						if(contestname === sessionStorage.getItem('contestname')){
+						if(childSnapshot.val().ContestName === sessionStorage.getItem('contestname')){
 							teamname = childSnapshot.val().teamName;
-						temphead = childSnapshot.val().questions;
-						contestname = childSnapshot.val().ContestName;
-						temp = childSnapshot.val().roomlink + "<br>";
-						var ref = firebase.database().ref("/contest/" + contestname);
+							temphead = childSnapshot.val().questions;
+							contestname = childSnapshot.val().ContestName;
+							temp = childSnapshot.val().roomlink + "<br>";
+							var ref = firebase.database().ref("/contest/" + contestname);
 
-						var divcontainer = document.createElement("div");
-						var divhr = document.createElement("hr");
-						var btncontainer = document.createElement("button");
-						divcontainer.id = `contest-${count}`;
-						btncontainer.id = `btn-${count}`;
-						btncontainer.className += "btn btn-default btn-primary";
-						divcontainer.innerHTML = `
-			                 ${teamname}
-			                 Content: ${temphead}
-			                 ContestName: ${contestname} `;
-						btncontainer.innerHTML = "Make Team Winner";
-						divhr.innerHTML = `<hr>`;
-						divhr.style = "border:1px solid black";
+							var divcontainer = document.createElement("div");
+							var divhr = document.createElement("hr");
+							var btncontainer = document.createElement("button");
+							divcontainer.id = `contest-${count}`;
+							btncontainer.id = `btn-${count}`;
+							btncontainer.className += "btn btn-default btn-primary";
+							divcontainer.innerHTML = `
+								${teamname}
+								Content: ${temphead}
+								ContestName: ${contestname} `;
+							btncontainer.innerHTML = "Make Team Winner";
+							divhr.innerHTML = `<hr>`;
+							divhr.style = "border:1px solid black";
 
-						document.getElementById("teamname").appendChild(divcontainer);
-						document.getElementById("teamname").appendChild(btncontainer);
-						document.getElementById("teamname").appendChild(divhr);
-						var winnerdiv = document.getElementById(`contest-${count}`);
+							document.getElementById("teamname").appendChild(divcontainer);
+							document.getElementById("teamname").appendChild(btncontainer);
+							document.getElementById("teamname").appendChild(divhr);
+							var winnerdiv = document.getElementById(`contest-${count}`);
 
-						var winbtn = document.getElementById(`btn-${count}`);
+							var winbtn = document.getElementById(`btn-${count}`);
 
-						winbtn.addEventListener("click", (e) => {
-							// alert('clicked ' + tempname);
-							sessionStorage.setItem("Winnerteam", winnerdiv.innerHTML);
-							ref.set({
-								Winner: winnerdiv.innerHTML,
-							});
+							winbtn.addEventListener("click", (e) => {
+								// alert('clicked ' + tempname);
+								console.log('Okka');
+								sessionStorage.setItem("Winnerteam", winnerdiv.innerHTML);
+								ref.set({
+									Winner: winnerdiv.innerHTML,
+								});
 							// location.replace('/');
-						});
-						count++;
+							});
+							count++;
 						}
 						
 					});
