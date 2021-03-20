@@ -40,6 +40,22 @@
 	</head>
 	<body>
 		<div class="b">
+			<div>
+				<div class="form-group">
+					<label for="sel">Select Contest</label>
+					<select class="form-control" id="contest" name="contest">
+						<option>Select Contest </option>
+						<% if(contest.length){ %>
+						<% contest.forEach((con) => { %>
+							<option id=`${con.contestname}`><%= con.contestname %></option>
+						<% }) %>
+						<% }%>
+					</select>
+				</div>
+				<div>
+					<button type="submit" id="contestid" class="btn btn-primary">Submit</button>
+				</div> 
+			</div>
 			<div id="teamname" class="container card bg-transparent shadow-lg">
 				<p id=""></p>
 				<h2 id="headertag"></h2>
@@ -50,7 +66,11 @@
 		
 
 		<script>
-			var header = document.getElementById("headertag");
+			var contestidbtn = document.getElementById('contestid');
+			contestidbtn.addEventListener('click', ( e ) => {
+				var header = document.getElementById("headertag");
+				var cnstnm = document.getElementById('contest').value;
+				sessionStorage.setItem('contestname', cnstnm); 
 			var para = document.getElementById("paratag");
 			var contest = document.getElementById("contestname");
 			var teamname = "";
@@ -65,7 +85,8 @@
 				.ref("/user/question")
 				.on("value", function (snapshot) {
 					snapshot.forEach((childSnapshot) => {
-						teamname = childSnapshot.val().teamName;
+						if(contestname === sessionStorage.getItem('contestname')){
+							teamname = childSnapshot.val().teamName;
 						temphead = childSnapshot.val().questions;
 						contestname = childSnapshot.val().ContestName;
 						temp = childSnapshot.val().roomlink + "<br>";
@@ -101,8 +122,12 @@
 							// location.replace('/');
 						});
 						count++;
+						}
+						
 					});
 				});
+			})
+			
 		</script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>

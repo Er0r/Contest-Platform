@@ -154,11 +154,11 @@
 				<script src="../assets/js/posthandler.js"></script>
 				<!-- Handler js-->
 				<div>
-					<% if(capacity === 4) { %>
+					<% if(capacity === 4 || capacity === 1) { %>
 					<script>
 						initializeTimer(1000);
 					</script>
-					<% } else if(capacity === 3 || capacity === 2) { %>
+					<% } else if(capacity === 3 || capacity === 2)  { %>
 					<script>
 						initializeTimer(3000); // arektu baraite hobe // 
 					</script>

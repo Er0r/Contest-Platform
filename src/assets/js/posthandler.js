@@ -12,25 +12,32 @@ const setteamdiv = document.getElementById('setteamdiv');
 const waitingdiv = document.getElementById('waitingdiv');
 var count = 0;
 
-var myVar = setInterval(initialize_members, 15000);
+var myVar = setInterval(initialize_members, 30000);
 
 function initialize_members(){
-    if(sessionStorage.getItem('capacity') >= 1 && sessionStorage.getItem('capacity') <= 3){
-        location.reload();
-        console.log(`${sessionStorage.getItem('capacity')} jon ache, aro niye ay, naile fot`);
-        waitingdiv.hidden = false;
-    }
-    else if(sessionStorage.getItem('capacity') >= 4){
-        clearInterval(myVar);
-        console.log('okey');
-        waitingdiv.hidden = true;
-        post.hidden = false;
-        confirmbtn.hidden = false;
-        leaveRoom.hidden = false;
-    }
+    // if(sessionStorage.getItem('capacity') >= 1 && sessionStorage.getItem('capacity') <= 3){
+    //     location.reload();
+    //     console.log(`${sessionStorage.getItem('capacity')} jon ache, aro niye ay, naile fot`);
+    //     waitingdiv.hidden = false;
+    // }
+    
+    // else if(sessionStorage.getItem('capacity') >= 4){
+    //     clearInterval(myVar);
+    //     console.log('okey');
+    //     waitingdiv.hidden = true;
+    //     post.hidden = false;
+    //     confirmbtn.hidden = false;
+    //     leaveRoom.hidden = false;
+    // }
+    // clearInterval(myVar);
+    console.log('okey');
+    waitingdiv.hidden = true;
+    post.hidden = false;
+    confirmbtn.hidden = false;
+    // leaveRoom.hidden = false;
 }
 
-
+initialize_members();
 
 firebase.database().ref('/user/question'+r).on('value', function(snapshot){
     if(snapshot.val().teamName && count === 0){

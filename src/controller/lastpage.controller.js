@@ -16,8 +16,8 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
         if(token === process.env.ADMIN_EMAIL) {
             testingCollection.find().toArray()
                 .then(contest => {
-                    res.render('LastPage');
-                })
+                    res.render('LastPage', {contest: contest});
+                }).catch(err => console.log(err));
         }
         else{
             res.render('error', {error: 'Please Login With your Credentials to access this page'});
