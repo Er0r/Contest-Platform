@@ -5,6 +5,8 @@ let io = require('socket.io')(server);
 var contesthandler = require('../assets/js/contesthandler');
 let stream = require('../ws/stream');
 const MongoClient = require('mongodb').MongoClient;
+var moment = require('moment');
+
 const connectionString = process.env.MONGODB_CONNECTION_STRING;
 MongoClient.connect(connectionString, { useUnifiedTopology: true })
   .then(client => {
@@ -17,7 +19,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
         testingCollection.find().toArray()
             .then(contest => { 
                 if(contest.length >= 0 ) {
-                    res.render('challenge', {contests: contest, contesthandler: contesthandler});
+                    res.render('challenge', {contests: contest, contesthandler: contesthandler, time: moment().format()});
                 }else {
                     res.render('handler', {contests: contest, contesthandler: contesthandler});
                 }    
