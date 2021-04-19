@@ -19,7 +19,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
         testingCollection.find().toArray()
             .then(contest => { 
                 if(contest.length >= 0 ) {
-                    res.render('challenge', {contests: contest, contesthandler: contesthandler, time: moment().add(1, 'hours').format()});
+                    res.render('challenge', {contests: contest, contesthandler: contesthandler, time: moment().add(2, 'hours').format()});
                 }else {
                     res.render('handler', {contests: contest, contesthandler: contesthandler});
                 }    

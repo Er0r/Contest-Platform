@@ -2,7 +2,7 @@ var moment = require('moment');
 
 function check(contestdate){
     let contesttime =  moment().format(contestdate.meetingtime);
-    var today = moment().add(1, 'hours');
+    var today = moment().add(2, 'hours');
     var status = today.to(contesttime);
 
     if(status.includes('hours ago')){
@@ -14,7 +14,7 @@ function check(contestdate){
 function upcomingcheck(contestdate) {
    
     let contesttime =  moment().format(contestdate.meetingtime);
-    var today = moment().add(1, 'hours');
+    var today = moment().add(2, 'hours');
     var status = today.to(contesttime);
     if(status.includes('ago')){
         return false;
@@ -24,7 +24,7 @@ function upcomingcheck(contestdate) {
 
 function finishcheck(contestdate) {
     let contesttime =  moment().format(contestdate.meetingtime);
-    var today = moment().add(1, 'hours');
+    var today = moment().add(2, 'hours');
     var status = today.to(contesttime);
     if(status.includes('ago')){
         return true;
@@ -35,7 +35,7 @@ function finishcheck(contestdate) {
 
 function contestentry(contestdate){
     let contesttime =  moment().format(contestdate.meetingtime);
-    var today = moment().add(1, 'hours');
+    var today = moment().add(2, 'hours');
     var status = today.to(contesttime);
     console.log(status);
     if(status.includes(`5 minutes`) || status.includes(`4 minutes`) || status.includes(`3 minutes`) || status.includes(`2 minutes`) || status.includes(`1 minutes`) ||  status.includes(`0 minutes`) || status.includes(`minutes ago`) || status.includes(`seconds ago`)){
